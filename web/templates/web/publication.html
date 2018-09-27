@@ -1,0 +1,106 @@
+{% extends 'web/base.html' %}
+ 
+{% block title %}
+<title>AI-Zone - Publication</title>
+{% endblock %}
+ 
+{% block content %}
+      <!-- Help -->
+      <div class="container g-pt-100 g-pb-70">
+        <div class="row g-mb-20">
+          <div class="col-md-4 g-mb-30">
+            <h2 class="mb-5"> <b>Papers</b></h2>
+            <!-- Nav tabs -->
+            <ul class="nav flex-column u-nav-v5-3 u-nav-primary g-bg-gray-light-v5 rounded g-pa-20" role="tablist" data-target="nav-5-3-primary-ver" data-tabs-mobile-type="slide-up-down" data-btn-classes="btn btn-md btn-block rounded-0 u-btn-outline-primary">
+              {% for year, papers in paper_list %}
+              <li class="nav-item">
+                {% if forloop.first %}
+                <a class="nav-link active g-brd-bottom-none g-color-primary--hover" data-toggle="tab" href="#nav-5-3-primary-ver--{{ year }}" role="tab"><b>{{ year }}</b></a>
+                {% else %}
+                <a class="nav-link g-brd-bottom-none g-color-primary--hover" data-toggle="tab" href="#nav-5-3-primary-ver--{{ year }}" role="tab"><b>{{ year }}</b></a>
+                {% endif %}
+              </li>
+              {% endfor %}
+            </ul>
+            <!-- End Nav tabs -->
+          </div>
+          <div class="col-md-8 g-mb-30">
+            <!-- Tab panes -->
+            <div id="nav-5-3-primary-ver" class="tab-content g-pt-20 g-pt-0--md">
+              {% for year, papers in paper_list %}
+              {% if forloop.first %}
+              <div class="tab-pane fade show active" id="nav-5-3-primary-ver--{{ year }}" role="tabpanel">
+              {% else %}
+              <div class="tab-pane fade" id="nav-5-3-primary-ver--{{ year }}" role="tabpanel">
+              {% endif %}
+                <h3 class="h5 g-color-gray-dark-v2 g-mb-30"><b>{{ year }}</b></h3>
+                <!-- Accordion -->
+                <div id="accordion-12-{{ year }}" class="u-accordion u-accordion-color-primary" role="tablist" aria-multiselectable="true">
+                  {% for paper in papers %}
+                  <!-- Card -->
+                  <div class="card g-brd-none g-brd-bottom g-brd-gray-light-v3 rounded-0 g-pb-30 g-mb-30">
+                    <div id="accordion-12-{{ year }}-heading-{{ forloop.counter }}" class="u-accordion__header g-color-gray-dark-v4 g-font-weight-500 g-font-size-16 g-pa-0" role="tab">
+                      {{ paper.title }}
+                      {% if  paper.link %}
+                      <a >&nbsp;&nbsp;</a>
+                      <a href="{{ paper.link }}">[pdf]</a>
+                      {% endif %}
+                      {% if  paper.code%}
+                      <a >&nbsp;&nbsp;</a>
+                      <a href="{{ paper.code }}">[code]  </a>
+                      {% endif %}          
+                          
+                      
+                    </div>
+                  </div>
+                  <!-- End Card -->
+                  {% endfor %}
+                </div>
+                <!-- End Accordion -->
+              </div>
+              {% endfor %}
+            </div>
+            <!-- End Tab panes -->
+          </div>
+        </div>
+
+      </div>
+      <!-- End Help -->
+    <!-- JS Plugins Init. -->
+    <script>
+      $(document).on('ready', function () {
+        // initialization of header
+        $.HSCore.components.HSHeader.init($('#js-header'));
+        $.HSCore.helpers.HSHamburgers.init('.hamburger');
+
+        // initialization of HSMegaMenu component
+        $('.js-mega-menu').HSMegaMenu({
+          event: 'hover',
+          pageContainer: $('.container'),
+          breakpoint: 991
+        });
+
+        // initialization of HSDropdown component
+        $.HSCore.components.HSDropdown.init($('[data-dropdown-target]'), {
+          afterOpen: function () {
+            $(this).find('input[type="search"]').focus();
+          }
+        });
+
+        // initialization of HSScrollBar component
+        $.HSCore.components.HSScrollBar.init($('.js-scrollbar'));
+
+        // initialization of go to
+        $.HSCore.components.HSGoTo.init('.js-go-to');
+
+        // Tabs
+        $.HSCore.components.HSTabs.init('[role="tablist"]');
+      });
+
+      $(window).on('resize', function () {
+        setTimeout(function () {
+          $.HSCore.components.HSTabs.init('[role="tablist"]');
+        }, 200);
+      });
+    </script>
+{% endblock %}

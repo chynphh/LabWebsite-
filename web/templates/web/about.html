@@ -1,0 +1,104 @@
+{% extends 'web/base.html' %}
+ 
+{% block title %}
+<title>AI-Zone - About</title>
+{% endblock %}
+ 
+{% block content %}
+      <!-- About -->
+      <div id="about-section" class="g-overflow-hidden">
+        <div class="container g-pt-70">
+          <!-- Heading -->
+          <div class="text-center">
+            <header class="text-center g-width-60x--md mx-auto g-mb-50">
+              <div class="u-heading-v2-3--bottom g-brd-primary g-mb-20">
+                <h2 class="h4 u-heading-v2__title g-color-gray-dark-v2 g-font-weight-600 text-uppercase">About Us</h2>
+              </div>
+            </header>
+          </div>
+          <!-- End Heading -->
+          <div class="row">
+              <div class="g-max-width-800 g-mb-30 mx-auto">
+                  <!-- Article -->
+                  <article class="g-bg-white rounded g-pa-25">
+                    <p class="g-font-size-16">
+                      {% autoescape off %}
+                        {{ intro }}
+                      {% endautoescape %}
+                    </p>
+                  </article>
+                  <!-- End Article -->
+              </div>
+          </div>
+
+          <!-- Icon Blocks -->
+          <ul class="row list-inline u-info-v9-1 g-pb-70 mb-0">
+            <li class="col-md-4 list-inline-item g-mx-0 g-mb-30">
+              <!-- Icon Blocks -->
+              <div class="u-block-hover text-center g-px-40">
+                <div class="g-mb-5">
+                  <span class="u-icon-v1 g-width-85 g-height-85 g-color-main g-font-size-50 rounded-circle">
+                    <i class="icon-education-024 u-line-icon-pro"></i>
+                  </span>
+                </div>
+                <div class="g-mb-25">
+                  <span class="u-icon-v2 u-shadow-v22 g-width-25 g-height-25 g-color-primary g-bg-white g-font-size-9 rounded-circle">
+                    <i class="fa fa-check"></i>
+                  </span>
+                </div>
+                <h3 class="g-color-primary g-font-weight-600 g-font-size-17 text-uppercase mb-3">
+                  <span class="g-color-main g-font-weight-700">01.</span>
+                  Study
+                </h3>
+              </div>
+              <!-- End Icon Blocks -->
+            </li>
+
+            <li class="col-md-4 list-inline-item g-mx-0 g-mb-30">
+              <!-- Icon Blocks -->
+              <div class="u-block-hover text-center g-px-40">
+                <div class="g-mb-5">
+                  <span class="u-icon-v1 g-width-85 g-height-85 g-color-main g-font-size-50 rounded-circle">
+                    <i class="icon-education-073 u-line-icon-pro"></i>
+                  </span>
+                </div>
+                <div class="g-mb-25">
+                  <span class="u-icon-v2 u-shadow-v22 g-width-25 g-height-25 g-color-primary g-bg-white g-font-size-9 rounded-circle">
+                    <i class="fa fa-check"></i>
+                  </span>
+                </div>
+                <h3 class="g-color-primary g-font-weight-600 g-font-size-17 text-uppercase mb-3">
+                  <span class="g-color-main g-font-weight-700">02.</span>
+                  Create
+                </h3>
+              </div>
+              <!-- End Icon Blocks -->
+            </li>
+
+            <li class="col-md-4 list-inline-item g-mx-0 g-mb-30">
+              <!-- Icon Blocks -->
+              <div class="u-block-hover text-center g-px-40">
+                <div class="g-mb-5">
+                  <span class="u-icon-v1 g-width-85 g-height-85 g-color-main g-font-size-50 rounded-circle">
+                    <i class="icon-communication-180 u-line-icon-pro"></i>
+                  </span>
+                </div>
+                <div class="g-mb-25">
+                  <span class="u-icon-v2 u-shadow-v22 g-width-25 g-height-25 g-color-primary g-bg-white g-font-size-9 rounded-circle">
+                    <i class="fa fa-check"></i>
+                  </span>
+                </div>
+                <h3 class="g-color-primary g-font-weight-600 g-font-size-17 text-uppercase mb-3">
+                  <span class="g-color-main g-font-weight-700">03.</span>
+                  Release
+                </h3>
+              </div>
+              <!-- End Icon Blocks -->
+            </li>
+          </ul>
+          <!-- End Icon Blocks -->
+        </div>
+      </div>
+      <!-- End About -->
+
+{% endblock %}

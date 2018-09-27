@@ -1,0 +1,47 @@
+{% extends 'web/base.html' %}
+ 
+{% block title %}
+<title>AI-Zone - News</title>
+{% endblock %}
+ 
+{% block content %}
+      <div id="portfolio-section" class="container g-pt-70 g-pb-100">
+        <!-- Heading -->
+        <div class="text-center g-mb-70">
+          <header class="text-center g-width-60x--md mx-auto g-mb-50">
+            <div class="u-heading-v2-3--bottom g-brd-primary g-mb-20">
+              <h2 class="h4 u-heading-v2__title g-color-gray-dark-v2 g-font-weight-600 text-uppercase">News</h2>
+            </div>
+            <p class="g-font-size-16">Some descriptions</p>
+          </header>
+        </div>
+        <!-- End Heading -->
+        <div class="row">
+        {% for piece_news in news %}
+            <div class="col-lg-4 g-mb-30">
+                <!-- Article -->
+                <article class="u-shadow-v21 g-bg-white rounded g-pa-25">
+                    <ul class="list-inline small g-color-gray-dark-v4 g-mb-20">
+                        <li class="list-inline-item">
+                        {% if piece_news.news_type == 'Paper' %}
+                            <a class="text-uppercase btn btn-xs u-btn-red rounded-0 " href="#!">Paper</a>
+                        {% elif piece_news.news_type == 'Application' %}
+                            <a class="text-uppercase btn btn-xs u-btn-primary rounded-0" href="#!">Application</a>
+                        {% else %}
+                            <a class="text-uppercase btn btn-xs u-btn-purple rounded-0" href="#!">News</a>
+                        {% endif %}
+                        </li>
+                        <li class="list-inline-item">|</li>
+                        <li class="list-inline-item">{{ piece_news.date|date:"F j, Y" }}</li>
+                    </ul>
+                    <h3 class="h2 g-font-weight-300 g-mb-40">
+                        <a class="u-link-v5 g-color-main g-color-primary--hover" href="{% url 'detial' 'news' piece_news.pk %}">{{ piece_news.title }}</a>
+                    </h3>
+                </article>
+                <!-- End Article -->
+            </div>
+        {% endfor %}
+        </div>
+      </div>
+
+{% endblock %}

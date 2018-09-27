@@ -1,0 +1,103 @@
+<!-- Header -->
+<header id="js-header" class="u-header u-header--static u-shadow-v19">
+	<div class="u-header__section u-header__section--light g-bg-white g-transition-0_3 g-py-10">
+		<nav class="js-mega-menu navbar navbar-expand-lg">
+			<div class="container">
+				<!-- Responsive Toggle Button -->
+				<button class="navbar-toggler navbar-toggler-right btn g-line-height-1 g-brd-none g-pa-0 g-pos-abs g-top-3 g-right-0" type="button"
+								aria-label="Toggle navigation"
+								aria-expanded="false"
+								aria-controls="navBar"
+								data-toggle="collapse"
+								data-target="#navBar">
+					<span class="hamburger hamburger--slider g-pr-0">
+						<span class="hamburger-box">
+							<span class="hamburger-inner"></span>
+						</span>
+					</span>
+				</button>
+				<!-- End Responsive Toggle Button -->
+
+				<!-- Logo -->
+				<a class="navbar-brand" href="{% url 'home' %}">
+					<img src="/static/assets/img-temp/100x100/img1.jpg" height="60" width="60" alt="Image Description">
+				</a>
+				<!-- End Logo -->
+
+				<!-- Navigation -->
+				<div id="navBar" class="collapse navbar-collapse align-items-center flex-sm-row g-pt-15 g-pt-0--lg">
+					<ul class="navbar-nav ml-auto">
+						<!-- Home - Submenu -->
+						<li class="nav-item g-mx-10--lg g-mx-15--xl">
+							<a id="nav-link--home" class="nav-link text-uppercase g-color-primary--hover g-px-5 g-py-20" href="{% url 'home' %}"
+								 aria-haspopup="true"
+								 aria-expanded="false"
+								 aria-controls="nav-submenu--home">
+								<b>Home</b>
+							</a>
+						</li>
+						<!-- End Home - Submenu -->
+
+						<!-- About - Submenu -->
+						<li class="nav-item g-mx-10--lg g-mx-15--xl">
+							<a id="nav-link--pages" class="nav-link text-uppercase g-color-primary--hover g-px-5 g-py-20" href="{% url 'about' %}"
+								 aria-haspopup="true"
+								 aria-expanded="false"
+								 aria-controls="nav-submenu--pages">
+								<b>About</b>
+							</a>
+						</li>
+						<!-- End About - Submenu -->
+
+						<!-- News - Submenu -->
+						<li class="nav-item g-mx-10--lg g-mx-15--xl">
+							<a id="nav-link--pages" class="nav-link text-uppercase g-color-primary--hover g-px-5 g-py-20" href="{%  url 'news'  %}"
+								 aria-haspopup="true"
+								 aria-expanded="false"
+								 aria-controls="nav-submenu--pages">
+								<b>News</b>
+							</a>
+						</li>
+						<!-- End News - Submenu -->
+						
+						<!-- Research - Submenu -->
+						<li class="nav-item g-mx-10--lg g-mx-15--xl">
+							<a id="nav-link--pages" class="nav-link text-uppercase g-color-primary--hover g-px-5 g-py-20" href="{%  url 'research'  %}	"
+								 aria-haspopup="true"
+								 aria-expanded="false"
+								 aria-controls="nav-submenu--pages">
+								<b>Research</b>
+							</a>
+						</li>
+						<!-- End Research - Submenu -->
+						
+						<!-- Team - Submenu -->
+						<li class="nav-item g-mx-10--lg g-mx-15--xl">
+							<a id="nav-link--pages" class="nav-link text-uppercase g-color-primary--hover g-px-5 g-py-20" href="{% url 'team' %}"
+								 aria-haspopup="true"
+								 aria-expanded="false"
+								 aria-controls="nav-submenu--pages">
+								<b>Team</b>
+							</a>
+						</li>
+						<!-- End Team - Submenu -->
+						
+						<!-- Publication - Submenu -->
+						<li class="nav-item g-mx-10--lg g-mx-15--xl">
+							<a id="nav-link--pages" class="nav-link text-uppercase g-color-primary--hover g-px-5 g-py-20" href="{% url 'publication' %}"
+								 aria-haspopup="true"
+								 aria-expanded="false"
+								 aria-controls="nav-submenu--pages">
+								<b>Publication</b>
+							</a>
+						</li>
+						<!-- End Publication - Submenu -->
+
+					</ul>
+				</div>
+				<!-- End Navigation -->
+			</div>
+		</nav>
+	</div>
+</header>
+<!-- End Header -->

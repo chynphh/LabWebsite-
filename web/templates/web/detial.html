@@ -1,0 +1,47 @@
+{% extends 'web/base.html' %}
+ 
+{% block title %}
+<title>AI-Zone - Publication</title>
+{% endblock %}
+{% block content %}
+
+      <!-- News Content -->
+      <section class="g-pt-50 g-pb-100">
+        <div class="container col-lg-4 g-mb-30">
+          <div class="row">
+            <!-- Articles Content -->
+            <div class="g-mb-70">
+              <article class="g-mb-60">
+                <header class="g-mb-30">
+                  <h2 class="h1 g-mb-15">{{ obj.title }}</h2>
+
+                  <ul class="list-inline d-sm-flex g-color-gray-dark-v4 mb-0">
+                    <li class="list-inline-item">
+                      {{ obj.date|date:"F j, Y" }}
+                    </li>
+                    <li class="list-inline-item ml-auto">
+                      <i class="icon-eye u-line-icon-pro align-middle mr-1"></i> Views {{ obj.view }}
+                    </li>
+                  </ul>
+
+                  <hr class="g-brd-gray-light-v4 g-my-15">
+
+                </header>
+
+                <div class="g-font-size-16 g-line-height-1_8 g-mb-30">
+                  {% autoescape off %}
+                  {{ obj.detial }}
+                  {% endautoescape %}
+                </div>
+
+                <hr class="g-brd-gray-light-v4">
+              </article>
+
+            </div>
+            <!-- End Articles Content -->
+
+          </div>
+        </div>
+      </section>
+      <!-- End News Content -->
+{% endblock %}
