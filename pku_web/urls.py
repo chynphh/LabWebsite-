@@ -17,7 +17,6 @@ from django.contrib import admin
 from django.urls import path, include, re_path
 # from django.conf.urls import url
 from web import views as web_views
-from htmltest import views as htmltest_views
 from django.conf import settings
 from django.conf.urls.static import static
 

@@ -22,7 +22,7 @@ def home(request):
     carousels = Carousel.objects.order_by('-pk')
     publications = Publictaion.objects.order_by('-year', '-pk')[:6]
     footerData = forFooter()
-    return render(request, 'web/home1.html', {'news': news, 'carousels': carousels, 'footerData': footerData, 'publications': publications})
+    return render(request, 'web/home.html', {'news': news, 'carousels': carousels, 'footerData': footerData, 'publications': publications})
 
 
 def news(request):

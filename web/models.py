@@ -10,7 +10,7 @@ from ckeditor.fields import RichTextField
 class Carousel(models.Model):
     image = models.ImageField(u'图片', upload_to='img/carousel', height_field=None,
                               width_field=None)
-    title = models.TextField(u'简介')
+    title = models.TextField(u'简介', blank=True)
     link = models.URLField(u'文章链接', blank=True) 
 
 
