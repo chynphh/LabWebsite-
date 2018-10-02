@@ -28,8 +28,6 @@ urlpatterns = [
     path(r'team', web_views.team, name='team'),
     path(r'research', web_views.research, name='research'),
     path(r'news', web_views.news, name='news'),
-    path(r'test/', web_views.test, name='test'),
-    path(r'base/', web_views.base, name='base'),
     re_path(r'detial/(?P<detialtype>[a-z]*)/(?P<pk>[0-9]*)', web_views.detial, name='detial'),
     path(r'^ckeditor/', include('ckeditor_uploader.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

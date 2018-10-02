@@ -2,14 +2,6 @@ from django.shortcuts import render
 from web.models import About, Publictaion, Student, Research, News, Carousel
 
 
-def base(request):
-    return render(request, 'web/base.html')
-
-
-def test(request):
-    return render(request, 'web/index.html')
-
-
 def forFooter():
     footerData = {}
     researches = Research.objects.order_by('-date')[:3]

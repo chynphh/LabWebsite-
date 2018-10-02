@@ -32,7 +32,7 @@ class Student(models.Model):
     research_interests = models.TextField(
         u'研究方向', default=u'强化学习；深度学习；', blank=True)
     image = models.ImageField(u'个人照片', upload_to='img/member', height_field=None,
-                              width_field=None, max_length=100)
+                              width_field=None, max_length=100, help_text='必须上传尺寸为400x550的图片，否则显示会有问题。')
     year = models.IntegerField(u'入学年份', default=today.year)
 
     def __str__(self):  # __str__ on Python 3
@@ -62,7 +62,7 @@ class Research(models.Model):
     tag3 = models.CharField(u'标签三', max_length=20, blank=True)
     link = models.URLField(u'链接', blank=True)
     image = models.ImageField(u'图片', upload_to='img/research', height_field=None,
-                              width_field=None, max_length=100)
+                              width_field=None, max_length=100, help_text='必须上传尺寸为500x600的图片，否则显示会有问题。')
 
     detial = RichTextField('正文')
     view = models.IntegerField(u'浏览量', default=1)
