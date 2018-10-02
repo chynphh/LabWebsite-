@@ -20,6 +20,7 @@ from web import views as web_views
 from django.conf import settings
 from django.conf.urls.static import static
 
+
 urlpatterns = [
     path(r'admin/', admin.site.urls),
     path(r'', web_views.home, name='home'),
@@ -29,6 +30,6 @@ urlpatterns = [
     path(r'research', web_views.research, name='research'),
     path(r'news', web_views.news, name='news'),
     re_path(r'detial/(?P<detialtype>[a-z]*)/(?P<pk>[0-9]*)', web_views.detial, name='detial'),
+
     path(r'^ckeditor/', include('ckeditor_uploader.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-
