@@ -14,9 +14,15 @@
     </header>
   </div>  <!-- End Breadcrumbs -->
   <div class="row">
-    <div class="col-lg-4 col-sm-6 g-mb-70 mx-auto">
+    <div class="col-lg-5 col-sm-6 g-mb-70 mx-auto">
       <!-- Figure -->
       <figure class="row flex-md-row align-items-center">
+        <!-- Figure Image -->
+        <div class="col-md-6 order-md-1 px-0">
+          <img class="w-100" src="/static/assets/our-image/zhzhang_400x550.jpg" alt="Image Description">
+        </div>
+        <!-- End Figure Image -->
+
         <!-- Figure Body -->
         <div class="col-md-6 order-md-2 px-0">
           <div class="u-ns-bg-v1-bottom u-ns-bg-v1-left--md g-bg-white g-py-30 g-px-50">
@@ -26,7 +32,12 @@
                 <h4 class="h4 g-color-black g-mb-5"> <b>张志华</b></h4>
                 <em class="d-block g-font-style-normal g-font-size-15 ">Ph D, Professor</em>
               </div>
-              <p>个人简介.</p>
+              <p><b>Research Areas:</b><br>
+              <p>Reinforcement Learning<br>
+              Deep Learning/Machine Learning<br>
+              Natural Language Processing/Games in AI<br>
+              Numerical Algebra and Optimization<br>
+              Bayesian Analysis and Computation</p>
             </div>
             <!-- End Figure Info -->
 
@@ -43,11 +54,6 @@
         </div>
         <!-- End Figure Body -->
 
-        <!-- Figure Image -->
-        <div class="col-md-6 order-md-1 px-0">
-          <img class="w-100" src="/static/assets/our-image/zhzhang_400x550.jpg" alt="Image Description">
-        </div>
-        <!-- End Figure Image -->
       </figure>
       <!-- End Figure -->
     </div>
@@ -76,7 +82,7 @@
         <!-- Team Block -->
         <figure class="u-block-hover">
           <!-- Figure Image -->
-          <img class="w-100" src="{{ MEDIA_URL }}{{ student.image }}" alt="Image Description">
+          <img class="w-100" src="/media/{{ student.image }}" alt="Image Description">
           <!-- End Figure Image-->
 
           <!-- Figure Info -->
@@ -151,7 +157,7 @@
         <!-- Team Block -->
         <figure class="u-block-hover">
           <!-- Figure Image -->
-          <img class="w-100" src="{{ MEDIA_URL }}{{ student.image }}" alt="Image Description">
+          <img class="w-100" src="/media/{{ student.image }}" alt="Image Description">
           <!-- End Figure Image-->
 
           <!-- Figure Info -->

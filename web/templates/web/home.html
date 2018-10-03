@@ -14,10 +14,10 @@
                     {% for carousel in carousels %}
                     
                     <!-- SLIDE  -->
-                    <li data-transition="slidingoverlayhorizontal" data-slotamount="default" data-hideafterloop="0" data-hideslideonmobile="off" data-easein="default" data-easeout="default" data-masterspeed="default" data-thumb="{{ MEDIA_URL }}{{ carousel.image }}" data-rotate="0" data-saveperformance="off" data-title="Slide" data-param1="" data-param2="" data-param3="" data-param4="" data-param5="" data-param6="" data-param7="" data-param8="" data-param9="" data-param10="" data-description=""
+                    <li data-transition="slidingoverlayhorizontal" data-slotamount="default" data-hideafterloop="0" data-hideslideonmobile="off" data-easein="default" data-easeout="default" data-masterspeed="default" data-thumb="/media/{{ carousel.image }}" data-rotate="0" data-saveperformance="off" data-title="Slide" data-param1="" data-param2="" data-param3="" data-param4="" data-param5="" data-param6="" data-param7="" data-param8="" data-param9="" data-param10="" data-description=""
                     >
                         <!-- MAIN IMAGE -->
-                        <img src="{{ MEDIA_URL }}{{ carousel.image }}" alt="" data-bgposition="center center" data-bgfit="cover" data-bgrepeat="no-repeat" class="rev-slidebg">
+                        <img src="/media/{{ carousel.image }}" alt="" data-bgposition="center center" data-bgfit="cover" data-bgrepeat="no-repeat" class="rev-slidebg">
                         <!-- LAYERS -->
                         {% if  carousel.title %}
 
@@ -86,7 +86,7 @@
       <div class="container">
         <div class="text-center g-mb-50">
           <h2 class="h1 g-color-black g-font-weight-600">Our Team</h2>
-          <p class="lead">Some descriptions.</p>
+          <p class="lead"></p>
         </div>
       <div class="container g-brd-secondary-light-v2 g-pt-50 g-pb-60">
         <div class="row justify-content-lg-center align-items-md-center">
@@ -136,7 +136,7 @@
               <!-- Product -->
               <figure class="u-block-hover">
                 <!-- Figure Image -->
-                <img class="w-100"  src="{{ MEDIA_URL }}{{ student.image }}" alt="Image Description">
+                <img class="w-100"  src="/media/{{ student.image }}" alt="Image Description">
                 <!-- End Figure Image-->
 
                 <!-- Figure Info -->
@@ -201,7 +201,7 @@
 
           <div class="text-center g-mb-50">
             <h2 class="h1 g-color-black g-font-weight-600">Latest News</h2>
-            <p class="lead">Some descriptions.</p>
+            <p class="lead"></p>
           </div>
         <div class="row">
         {% for piece_news in news %}
@@ -246,7 +246,7 @@
           <!-- Blog Background Overlay Blocks -->
           <article class="u-block-hover">
             <div class="g-bg-cover g-bg-bluegray-gradient-opacity-v1--after">
-              <img class="d-flex align-items-end u-block-hover__main--mover-down" src="{{ MEDIA_URL }}{{ research.image }}" alt="Image Description">
+              <img class="d-flex align-items-end u-block-hover__main--mover-down" src="/media/{{ research.image }}" alt="Image Description">
             </div>
             <div class="u-block-hover__additional--partially-slide-up text-center g-z-index-1 mt-auto">
               <div class="u-block-hover__visible g-pa-25">
@@ -276,7 +276,7 @@
             <!-- Heading -->
             <div class="text-center g-mb-50">
               <h2 class="h1 g-color-black g-font-weight-600">Publications</h2>
-              <p class="lead">Some descriptions.</p>
+              <p class="lead"></p>
             </div>
             <!-- End Heading -->
 
