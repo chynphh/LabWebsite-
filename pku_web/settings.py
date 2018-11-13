@@ -83,9 +83,9 @@ WSGI_APPLICATION = 'pku_web.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'web',
-        'USER': 'root',
-        'PASSWORD': '',
+        'NAME': 'ml_web',
+        'USER': 'ml',
+        'PASSWORD': 'mlpasswd',
         'HOST': '127.0.0.1',
         'PORT': '3306',
     }
