@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        {% load static %}
+        <!-- Title -->
+        {% block title %}
+            <title>AI-Zone</title>
+        {% endblock %}
+        <!-- Title -->
+
+        <!-- Required Meta Tags Always Come First -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+
+        <!-- Favicon -->
+        <!-- CSS Global Compulsory -->
+        <link rel="stylesheet" href="/static/assets/vendor/bootstrap/bootstrap.min.css">
+        <link rel="stylesheet" href="/static/assets/vendor/icon-awesome/css/font-awesome.min.css">
+        <link rel="stylesheet" href="/static/assets/vendor/icon-line-pro/style.css">
+        <link rel="stylesheet" href="/static/assets/vendor/animate.css">
+
+        <!-- CSS Unify -->
+        <link rel="stylesheet" href="/static/assets/css/unify-core.css">
+        <link rel="stylesheet" href="/static/assets/css/unify-components.css">
+        <link rel="stylesheet" href="/static/assets/css/unify-globals.css">
+
+        <!-- CSS Customization -->
+        <link rel="stylesheet" href="/static/assets/css/custom.css">
+    </head>
+
+    <body>
+        <main>
+            {% block main %}
+            <div>这里是默认内容，所有继承自这个模板的，如果不覆盖就显示这里的默认内容。</div>
+            {% endblock %}
+        </main>
+        <script src="/static/assets/vendor/jquery/jquery.min.js"></script>
+        <script src="/static/assets/vendor/jquery-migrate/jquery-migrate.min.js"></script>
+        <script src="/static/assets/vendor/popper.min.js"></script>
+        <script src="/static/assets/vendor/bootstrap/bootstrap.min.js"></script>
+
+
+        <!-- JS Unify -->
+        <script src="/static/assets/js/hs.core.js"></script>
+
+        <!-- JS Customization -->
+        <script src="/static/assets/js/custom.js"></script>
+
+        {% block js %}
+
+        {% endblock %}
+    </body>
+</html>

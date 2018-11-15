@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    
+  {% block title %}
+       <title>论文列表</title>
+  {% endblock %}
+  <!-- Title -->
+  
+
+  <!-- Required Meta Tags Always Come First -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+
+  <!-- Favicon -->
+  <link rel="shortcut icon" href="../../favicon.ico">
+  <!-- Google Fonts -->
+  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Open+Sans%3A400%2C300%2C500%2C600%2C700%7CPlayfair+Display%7CRoboto%7CRaleway%7CSpectral%7CRubik">
+  <!-- CSS Global Compulsory -->
+  <link rel="stylesheet" href="/static/assets1/vendor/bootstrap/bootstrap.min.css">
+  <!-- CSS Global Icons -->
+  <link rel="stylesheet" href="/static/assets1/vendor/icon-awesome/css/font-awesome.min.css">
+  <link rel="stylesheet" href="/static/assets1/vendor/icon-line/css/simple-line-icons.css">
+  <link rel="stylesheet" href="/static/assets1/vendor/icon-etlinefont/style.css">
+  <link rel="stylesheet" href="/static/assets1/vendor/icon-line-pro/style.css">
+  <link rel="stylesheet" href="/static/assets1/vendor/icon-hs/style.css">
+
+  <link rel="stylesheet" href="/static/assets2/vendor/hs-admin-icons/hs-admin-icons.css">
+  <link rel="stylesheet" href="/static/assets1/vendor/animate.css">
+  <link rel="stylesheet" href="/static/assets1/vendor/malihu-scrollbar/jquery.mCustomScrollbar.min.css">
+  <link rel="stylesheet" href="/static/assets2/vendor/bootstrap-select/css/bootstrap-select.min.css">
+  <link rel="stylesheet" href="/static/assets2/vendor/chartist-js/chartist.min.css">
+  <link rel="stylesheet" href="/static/assets2/vendor/fancybox/jquery.fancybox.min.css">
+
+  <link rel="stylesheet" href="/static/assets1/vendor/hamburgers/hamburgers.min.css">
+
+  <!-- CSS Unify -->
+  <link rel="stylesheet" href="/static/assets2/css/unify-admin.css">
+
+  <!-- CSS Customization -->
+  <link rel="stylesheet" href="/static/assets1/css/custom.css">
+  
+  <!-- CSS messenger -->
+  <link rel="stylesheet" type="text/css" href="/static/assets1/css/messenger.css">
+  <link rel="stylesheet" type="text/css" href="/static/assets1/css/messenger-theme-future.css">
+  <link rel="stylesheet" type="text/css" href="/static/assets1/css/messenger-theme-block.css">
+  
+ {% block css %}
+  
+  {% endblock %}
+</head>
+
+<body  style="background-image: url(/static/assets1/img/bg/bg.jpg);background-repeat:no-repeat; background-attachment:fixed;background-size:100% 100%">
+  <main>
+         <header id="js-header" class="u-header u-header--sticky-top">
+      <div class="u-header__section u-header__section--admin-dark g-min-height-65">
+        <nav class="navbar no-gutters g-pa-0">
+          <div class="col-auto d-flex flex-nowrap u-header-logo-toggler g-py-12">
+            <!-- Logo -->
+             <div class="navbar-brand d-flex align-self-center g-hidden-xs-down g-line-height-1 py-0 g-mt-5">
+                <img src="/static/assets1/img/logo/logo1.png">
+            </div>
+            <!-- End Logo -->
+          </div>
+
+          <!-- Messages/Notifications/Top Search Bar/Top User -->
+          <div class="col-auto d-flex g-py-12 g-pl-40--lg ml-auto"> 
+
+          <!-- backward --> 
+            <div class="g-pos-rel ">
+              <a class="d-block text-uppercase u-header-icon-v1 g-pos-rel g-width-40 g-height-40 rounded-circle g-font-size-20" href="paper?pageNum=1"  >
+                <span> 
+                  <i class="hs-admin-arrow-circle-left g-absolute-centered"></i>
+                </span>
+              </a>
+            </div>
+           <!-- endbackward -->
+            <div class="g-pos-rel ">
+              <a class="d-block text-uppercase u-header-icon-v1 g-pos-rel g-width-40 g-height-40 rounded-circle g-font-size-20" href="conference"  title="2019年会议信息">
+                <span> 
+                  <i class="hs-admin-calendar g-absolute-centered"></i>
+                </span>
+              </a>
+            </div>
+          <!-- Top Notifications -->
+          <div class="g-pos-rel">
+            <a id="notificationsInvoker" class="d-block text-uppercase u-header-icon-v1 g-pos-rel g-width-40 g-height-40 rounded-circle g-font-size-20" href="#!" aria-controls="notificationsMenu" aria-haspopup="true" aria-expanded="false" data-dropdown-event="click"
+            data-dropdown-target="#notificationsMenu" data-dropdown-type="css-animation" data-dropdown-duration="300" data-dropdown-animation-in="fadeIn" data-dropdown-animation-out="fadeOut">
+            <span>
+            <i class='hs-admin-link g-absolute-centered' title='更多链接'></i>
+            </span>
+            </a>
+
+            <!-- Top Notifications List -->
+            <div id="notificationsMenu" class="js-custom-scroll g-height-400 g-mt-17 rounded" aria-labelledby="notificationsInvoker" style="width:340 !important;left:0% !importanti; transform: translateX(-50%);    position: absolute !important;">
+              <div class="media text-uppercase u-header-dropdown-bordered-v1 g-pa-20">
+                <h4 class="d-flex align-self-center g-font-size-default g-letter-spacing-0_5 g-mr-20 g-mb-0">更多链接</h4>
+              </div>
+
+              <ul class="p-0 mb-0">
+                <!-- Top Notifications List Item -->
+                <li class="media u-header-dropdown-item-v1 g-parent g-px-20 g-py-15">
+                  <a class="media-body align-self-center" style="font-size:20px" href="conferencePaper?pageNum=1&conferenceName=mmpaper2018">
+                     <img src="/media/common/mm.png" width="120px" height="40px" title="ACM MM 2018" style=" margin-right:25px"> ACM MM 2018
+                  </a>
+                </li>
+                <!-- End Top Notifications List Item -->
+                <li class="media u-header-dropdown-item-v1 g-parent g-px-20 g-py-15">
+                  <a class="media-body align-self-center" style="font-size:20px" href="conferencePaper?pageNum=1&conferenceName=cvprpaper2018">
+                     <img src="/media/common/cvpr.jpg" width="120px" height="60px" title="CVPR 2018" style=" margin-right:25px"> CVPR 2018
+                  </a>
+                </li>
+              </ul>
+            </div>
+            <!-- End Top Notifications List -->
+          </div>
+          <!-- End Top Notifications -->
+
+            <!-- Top User -->
+            <div class="col-auto d-flex g-pt-5 g-pt-0--sm g-pl-10 g-pl-20--sm">
+              <div class="g-pos-rel g-px-10--lg">
+                <a id="profileMenuInvoker" class="d-block" href="#!" aria-controls="profileMenu" aria-haspopup="true" aria-expanded="false" data-dropdown-event="click" data-dropdown-target="#profileMenu" data-dropdown-type="css-animation" data-dropdown-duration="300"
+                data-dropdown-animation-in="fadeIn" data-dropdown-animation-out="fadeOut">
+                  <span class="g-pos-rel">
+        <span class="u-badge-v2--xs u-badge--top-right g-hidden-sm-up g-bg-lightblue-v5 g-mr-5"></span>
+                  <img class="g-width-30 g-width-40--md g-height-30 g-height-40--md rounded-circle g-mr-10--sm" src="{% block imgPath%}{% endblock %}" alt="user profile photo">
+                  </span>
+                  <span class="g-pos-rel g-top-2">
+        <span class="g-hidden-sm-down">{% block userName %}{% endblock%}</span>
+                  <i class="hs-admin-angle-down g-pos-rel g-top-2 g-ml-10"></i>
+                  </span>
+                </a>
+
+                <!-- Top User Menu -->
+                <ul id="profileMenu" class="g-pos-abs g-left-0 g-width-100x--lg g-nowrap g-font-size-14 g-py-20 g-mt-17 rounded" aria-labelledby="profileMenuInvoker">
+                  <li class="g-mb-10">
+                    <a class="media g-color-lightred-v2--hover g-py-5 g-px-20" href="profile?userId={{ request.session.userId }}">
+                      <span class="d-flex align-self-center g-mr-12">
+          <i class="hs-admin-user"></i>
+        </span>
+                      <span class="media-body align-self-center">我的资料</span>
+                    </a>
+                  </li>
+                  <li class="mb-0">
+                    <a class="media g-color-lightred-v2--hover g-py-5 g-px-20" href="/">
+                      <span class="d-flex align-self-center g-mr-12">
+          <i class="hs-admin-shift-right"></i>
+        </span>
+                      <span class="media-body align-self-center">注销</span>
+                    </a>
+                  </li>
+                </ul>
+                <!-- End Top User Menu -->
+              </div>
+            </div>
+            <!-- End Top User -->
+          </div>
+          <!-- End Messages/Notifications/Top Search Bar/Top User -->
+      </div>
+    </header>
+    <!-- End Header -->
+        {% block content %}
+            <div>这里是默认内容，所有继承自这个模板的，如果不覆盖就显示这里的默认内容。</div>
+        {% endblock %}
+  </main>
+
+  <!-- JS Global Compulsory -->
+  <script src="/static/assets2/vendor/jquery/jquery.min.js"></script>
+  <script src="/static/assets2/vendor/jquery-migrate/jquery-migrate.min.js"></script>
+
+  <script src="/static/assets1/vendor/popper.min.js"></script>
+  <script src="/static/assets1/vendor/bootstrap/bootstrap.min.js"></script>
+
+  <script src="/static/assets1/vendor/cookiejs/jquery.cookie.js"></script>
+
+
+  <!-- JS Plugins Init. -->
+  <script src="/static/assets1/vendor/appear.js"></script>
+  <script src="/static/assets2/vendor/bootstrap-select/js/bootstrap-select.min.js"></script>
+  <script src="/static/assets1/vendor/malihu-scrollbar/jquery.mCustomScrollbar.concat.min.js"></script>
+  <script src="/static/assets2/vendor/chartist-js/chartist.min.js"></script>
+  <script src="/static/assets2/vendor/fancybox/jquery.fancybox.min.js"></script>
+
+  <!-- JS Unify -->
+  <script src="/static/assets1/js/hs.core.js"></script>
+  <script src="/static/assets2/js/components/hs.side-nav.js"></script>
+  <script src="/static/assets1/js/helpers/hs.hamburgers.js"></script>
+  <script src="/static/assets1/js/components/hs.dropdown.js"></script>
+  <script src="/static/assets1/js/components/hs.scrollbar.js"></script>
+  <script src="/static/assets2/js/components/hs.bar-chart.js"></script>
+  <script src="/static/assets1/js/helpers/hs.focus-state.js"></script>
+  <script src="/static/assets2/js/components/hs.popup.js"></script>
+
+  <!-- JS Custom -->
+  <script src="/static/assets1/js/custom.js"></script>
+  
+  <!-- messenger -->
+  <script type="text/javascript" src="/static/assets1/js/messenger.min.js"></script>
+  <script type="text/javascript" src="/static/assets1/js/messenger-theme-future.js"></script>
+  {% block js %}
+
+  {% endblock %}
+  </body>
+</html>
+

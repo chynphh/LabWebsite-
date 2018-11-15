@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'web',
+    'bbs',
 
     'ckeditor',
     'ckeditor_uploader'
@@ -88,9 +89,45 @@ DATABASES = {
         'PASSWORD': 'mlpasswd',
         'HOST': '127.0.0.1',
         'PORT': '3306',
+    },
+    'ml_web': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'ml_web',
+        'USER': 'ml',
+        'PASSWORD': 'mlpasswd',
+        'HOST': '127.0.0.1',
+        'PORT': '3306',
+    },
+    'ml_bbs': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'ml_bbs',
+        'USER': 'ml',
+        'PASSWORD': 'mlpasswd',
+        'HOST': '127.0.0.1',
+        'PORT': '3306',
     }
 }
 
+DATABASES_APPS_MAPPING = {
+    'web': 'default',
+    'bbs': 'ml_bbs',
+    'admin':'default',
+    'auth':'default',
+    'contenttypes':'default',
+    'sessions':'default',
+    'messages':'default',
+    'staticfiles':'default',
+}
+
+DATABASE_ROUTERS = ['pku_web.database_app_router.DatabaseAppsRouter']
+
+
+AUTHENTICATION_BACKENDS = [
+'django.contrib.auth.backends.ModelBackend',
+'bbs.bbs_backend.UsernamePasswordAuth',
+]
+
+# AUTH_USER_MODEL = 'bbs.MyUser'
 
 # Password validation
 # https://docs.djangoproject.com/en/2.0/ref/settings/#auth-password-validators

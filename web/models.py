@@ -12,7 +12,8 @@ class Carousel(models.Model):
                               width_field=None)
     title = models.TextField(u'简介', blank=True)
     link = models.URLField(u'文章链接', blank=True) 
-
+    class Meta:
+        app_label = 'web'
 
 class Student(models.Model):
     student_type_choice = (
@@ -35,6 +36,8 @@ class Student(models.Model):
                               width_field=None, max_length=100, help_text='必须上传尺寸为400x550的图片，否则显示会有问题。')
     year = models.IntegerField(u'入学年份', default=today.year)
 
+    class Meta:
+        app_label = 'web'
     def __str__(self):  # __str__ on Python 3
         return self.name
 
@@ -45,12 +48,16 @@ class Publictaion(models.Model):
     code = models.URLField(u'代码链接', blank=True)
     year = models.IntegerField(u'发表年份')
 
+    class Meta:
+        app_label = 'web'
     def __str__(self):
         return self.title
 
 
 class About(models.Model):
     about = RichTextField(u'实验室简介')
+    class Meta:
+        app_label = 'web'
 
 
 class Research(models.Model):
@@ -71,6 +78,8 @@ class Research(models.Model):
         self.view += 1
         self.save(update_fields=['view'])
 
+    class Meta:
+        app_label = 'web'
     def __str__(self):
         return self.title
 
@@ -94,5 +103,7 @@ class News(models.Model):
         self.view += 1
         self.save(update_fields=['view'])
 
+    class Meta:
+        app_label = 'web'
     def __str__(self):
         return self.title
