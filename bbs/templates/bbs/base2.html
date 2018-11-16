@@ -6,6 +6,8 @@
 <html lang="en">
 
 <head>
+        {% load static %}
+        {% load my_filter %}
   {% block title %}
        <title>BBS</title>
   {% endblock %}
@@ -59,6 +61,18 @@
     <header id="js-header" class="u-header">
       <div class="u-header__section u-header__section--admin-dark g-min-height-65">
         <nav class="navbar no-gutters g-pa-0">
+          <!-- Top Search Bar -->
+          <div class="col-sm g-py-12 g-ml-15--sm g-ml-20--md g-mr-10--sm">
+            <!-- Top Notifications -->
+            <div class="g-pos-rel g-hidden-sm-down">
+              <a class="d-block text-uppercase u-header-icon-v1 g-pos-rel g-width-40 g-height-40 rounded-circle g-font-size-20" href="{% url 'index' %}">
+                <i class="icon-home g-absolute-centered"></i>
+              </a>
+            </div>
+            <!-- End Top Notifications -->
+          </div>
+          <!-- End Top Search Bar -->
+
           <!-- Messages/Notifications/Top Search Bar/Top User -->
           <div class="col-auto d-flex g-py-12 g-pl-40--lg ml-auto">
             <!-- Top Messages -->
@@ -230,7 +244,7 @@
     </header>
     <!-- End Header -->
     {% block content %}
-    <div>这里是默认asdasdasdasdasdasdas内容，所有继承自这个模板的，如果不覆盖就显示这里的默认内容。</div>
+    <div>内容，所有继承自这个模板的，如果不覆盖就显示这里的默认内容。</div>
     {% endblock %}
   </main>
 

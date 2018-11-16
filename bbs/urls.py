@@ -10,5 +10,7 @@ urlpatterns = [
     path(r'index', views.index, name='index'),
     path(r'test', views.test, name='test'),
     re_path(r'detail/(?P<pk>\d+)', views.detail, name='detail'),
+    re_path(r'add_reply/(?P<pk>\d+)', views.add_reply, name='add_reply'),
+    re_path(r'add_comment/(?P<reply_pk>\d+)/(?P<user_to_pk>\d+)', views.add_comment, name='add_comment'),
 
 ]
