@@ -71,7 +71,7 @@ class Research(models.Model):
     image = models.ImageField(u'图片', upload_to='img/research', height_field=None,
                               width_field=None, max_length=100, help_text='必须上传尺寸为500x600的图片，否则显示会有问题。')
 
-    detial = RichTextField('正文')
+    detail = RichTextField('正文')
     view = models.IntegerField(u'浏览量', default=1)
 
     def increase_views(self):
@@ -96,7 +96,7 @@ class News(models.Model):
     news_type = models.CharField(
         u'新闻类别', max_length=20, choices=news_type_choice, default=news_type_choice[2])
 
-    detial = RichTextField('正文')
+    detail = RichTextField('正文')
     view = models.IntegerField(u'浏览量', default=1)
 
     def increase_views(self):

@@ -66,26 +66,26 @@
 
             var $this = $(el);
 
-            // if(!(/iPhone|iPad|iPod|Android/i.test(navigator.userAgent))) {
+            if(!(/iPhone|iPad|iPod|Android/i.test(navigator.userAgent))) {
               if (!$this.data('HSAnimationElement')) {
                 $this.data('HSAnimationElement', new HSAnimationElement($this, self.config));
 
                 self._pageCollection = self._pageCollection.add($this);
               }
-            // } else {
-            //   $this.addClass(self.config.inViewportClass);
-            // }
+            } else {
+              $this.addClass(self.config.inViewportClass);
+            }
 
           });
         },
         appear: function(el) {
           var $el = $(el);
 
-          // if(!(/iPhone|iPad|iPod|Android/i.test(navigator.userAgent))) {
+          if(!(/iPhone|iPad|iPod|Android/i.test(navigator.userAgent))) {
             if (!$el.hasClass(self.config.inViewportClass)) {
               $el.data('HSAnimationElement').show();
             }
-          // }
+          }
         }
 
       });

@@ -1,4 +1,5 @@
 {% extends 'bbs/base2.html' %}
+
 {% block content %}
     <section class="container px-0 g-pt-100" style="min-width:80%">
 
@@ -21,8 +22,8 @@
             {% for post in posts %}
               <tr>
                 <td><span class="u-label g-rounded-3 g-bg-bluegray">{{ post.view }}</span></td>
-                <td>{{ post.title }}</td>
-                <td>{{ post.creator_id }}</td>
+                <td> <a class="u-link-v5 g-color-main g-color-primary--hover" href="{% url 'detail' post.pk %}">{{ post.title }}</a></td>
+                <td>{{ post.author.username }}</td>
                 <td><span class="u-label g-rounded-3 g-bg-bluegray">{{ post.reply }}</span></td>
                 <td>{{ post.last_time}}</td>
                 <td>
@@ -58,8 +59,8 @@
         {% for post in posts %}
           <tr>
             <td><span class="u-label g-rounded-3 g-bg-bluegray">{{ post.view }}</span></td>
-            <td>{{ post.title }}</td>
-            <td>{{ post.creator_id }}</td>
+            <td> <a href="{% url 'detail' post.pk %}">{{ post.title }}</a></td>
+            <td>{{ post.author.username }}</td>
             <td><span class="u-label g-rounded-3 g-bg-bluegray">{{ post.reply }}</span></td>
             <td>{{ post.last_time}}</td>
             <td>

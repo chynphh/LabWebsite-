@@ -3,6 +3,8 @@ from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
 from django.contrib.auth.hashers import make_password, check_password
 from ckeditor.fields import RichTextField
 import django.utils.timezone as timezone
+from DjangoUeditor.models import UEditorField
+from django.urls import reverse
 
 
 class MyUserManager(BaseUserManager):
@@ -87,14 +89,21 @@ class Post(models.Model):
         (u'Open.', u'开放中'),
     )
     title = models.CharField(u'标题', max_length=50)
-    last_time = models.DateTimeField('最后回复时间', default=timezone.now)
+    # 创建时间上和更新时间
+    created_time = models.DateTimeField(auto_now_add=True, verbose_name='创建时间')
+    last_time = models.DateTimeField(auto_now=True, verbose_name='最后回复时间')
+
     status = models.CharField(
         u'帖子状态', max_length=20, choices=status_choice, default=status_choice[1])
-    creator_id = models.IntegerField(u'创建者ID')
     view = models.IntegerField(u'浏览量', default=1)
     reply = models.IntegerField(u'回复量', default=0)
-    content = models.TextField(u'内容')
+    content_html = UEditorField(width=940, height=600, imagePath="/img/",
+                                filePath="media/img/", verbose_name=u"文章内容")
     is_top = models.BooleanField(u'是否置顶', default=True)
+
+    # 定义外键关系
+    author = models.ForeignKey(MyUser, verbose_name='作者', on_delete=models.CASCADE)
+    # creator_id = models.IntegerField(u'创建者ID')
 
     def increase_view(self):
         self.view += 1
@@ -107,22 +116,26 @@ class Post(models.Model):
     def __str__(self):  # __str__ on Python 3
         return self.title
 
+    def get_absolute_url(self):
+        return reverse('detail', kwargs={'pk': self.pk})
+
     class Meta:
         app_label = 'bbs'
 
 
-# class Reply(models.Model):
-#     post_id = models.IntegerField()
-#     creator_id = models.IntegerField(u'创建者ID')
-#     content = models.TextField(u'内容')
-#     time = models.DateTimeField('时间', default=timezone.now)
-#     comment = models.IntegerField(u'评论量', default=0)
 
-#     def __str__(self):  # __str__ on Python 3
-#         return f"{self.creator_id},{self.time}"
+class Reply(models.Model):
+    post = models.ForeignKey(Post, related_name='father_post', on_delete=models.CASCADE)
+    user = models.ForeignKey(MyUser, on_delete=models.CASCADE)
+    content_html = UEditorField(width=940, height=600, imagePath="/img/",
+                                filePath="media/img/", verbose_name=u"回复内容")
+    created_time = models.DateTimeField(auto_now_add=True, verbose_name='创建时间')
 
-#     class Meta:
-#         app_label = 'bbs'
+    def __str__(self):  # __str__ on Python 3
+        return f"{self.user},{self.post}"
+
+    class Meta:
+        app_label = 'bbs'
 
 
 # class Comment(models.Model):
@@ -136,3 +149,6 @@ class Post(models.Model):
 
 #     class Meta:
 #         app_label = 'bbs'
+
+
+

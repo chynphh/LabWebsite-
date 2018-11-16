@@ -91,7 +91,6 @@
 							effect: effect,
 							onOpen: function() {
 								config['onOpen'].call($(target));
-								Custombox.modal.closeAll();
 							},
 							onClose: function() {
 								config['onClose'].call($(target));
@@ -315,13 +314,13 @@
 								}
 							}
 						).open();
-
+				    
 		  		}
 
 		  	}, 10);
 
 			});
-
+			
 
 		},
 

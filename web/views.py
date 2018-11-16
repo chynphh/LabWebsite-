@@ -87,12 +87,12 @@ def research(request):
     return render(request, 'web/research.html', {'researches': researches, 'labels': labels, 'footerData': footerData})
 
 
-def detial(request, detialtype, pk):
-    if detialtype == 'news':
+def detail(request, detailtype, pk):
+    if detailtype == 'news':
         obj = News.objects.get(pk=int(pk))
-    elif detialtype == 'research':
+    elif detailtype == 'research':
         obj = Research.objects.get(pk=int(pk))
     obj.increase_views()
 
     footerData = forFooter()
-    return render(request, 'web/detial.html', {'obj': obj, 'footerData': footerData})
+    return render(request, 'web/detail.html', {'obj': obj, 'footerData': footerData})

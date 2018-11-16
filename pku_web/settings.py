@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'web',
     'bbs',
 
+    'DjangoUeditor',
     'ckeditor',
     'ckeditor_uploader'
 ]

@@ -1,23 +1,23 @@
 /**************************************************************************
  * jquery.themepunch.revolution.js - jQuery Plugin for Revolution Slider
- * @version: 5.4.8 (10.06.2018)
+ * @version: 5.4.5 (17.05.2017)
  * @requires jQuery v1.7 or later (tested on 1.9)
  * @author ThemePunch
 **************************************************************************/
-;(function(jQuery,undefined){
+(function(jQuery,undefined){
 "use strict";
 		
 	var version = {
-					core : "5.4.8",
+					core : "5.4.5",
 					"revolution.extensions.actions.min.js":"2.1.0",
 					"revolution.extensions.carousel.min.js":"1.2.1",
 					"revolution.extensions.kenburn.min.js":"1.3.1",
-					"revolution.extensions.layeranimation.min.js":"3.6.5", 
-					"revolution.extensions.navigation.min.js":"1.3.5", 
-					"revolution.extensions.parallax.min.js":"2.2.3",  
-					"revolution.extensions.slideanims.min.js":"1.8", 
-					"revolution.extensions.video.min.js":"2.2.2"  
-				   };
+					"revolution.extensions.layeranimation.min.js":"3.6.1", 
+					"revolution.extensions.navigation.min.js":"1.3.3", 
+					"revolution.extensions.parallax.min.js":"2.2.0",  
+					"revolution.extensions.slideanims.min.js":"1.7", 
+					"revolution.extensions.video.min.js":"2.1.1"  
+				   }
 
 	jQuery.fn.extend({
 
@@ -509,11 +509,6 @@
 				var c=jQuery(this);								
 				if (c!=undefined && c.length>0 && jQuery('body').find('#'+c.attr('id')).length>0 && c[0].opt!==undefined) {						
 					if (!c[0].opt.sliderisrunning) {
-						
-						// fixes revapi.revstart();
-						c[0].opt.c=c;
-						c[0].opt.ul = c.find('>ul');
-						
 						runSlider(c,c[0].opt);
 						return true;
 					}
@@ -750,17 +745,6 @@ jQuery.extend(true, _R, {
 	    M=M? [M[1], M[2]]: [N, navigator.appVersion, '-?'];
 	    return M[1];
     },
-	
-	/*
-		Jason / Safari 11 Video autoplay fix
-	*/
-	isSafari11: function() {
-		
-		var browser = jQuery.trim(_R.get_browser().toLowerCase());
-		if(jQuery.trim(navigator.userAgent.toLowerCase()).search('edge') !== -1 || browser === 'msie') return false;
-		return browser.match(/safari|chrome/);
-		
-	},
 
     // GET THE HORIZONTAL OFFSET OF SLIDER BASED ON THE THU`MBNAIL AND TABS LEFT AND RIGHT SIDE
 	getHorizontalOffset : function(container,side) {
@@ -1045,7 +1029,6 @@ var lAjax = function(s,o) {
 		o.modulesfailing = true;
 		return false;
 	}	
-	
 	jQuery.ajax({
 		url:o.jsFileLocation+s+o.extensions_suffix+'?version='+version.core,
 		'dataType':'script',
@@ -1574,13 +1557,8 @@ var initSlider = function (container,opt) {
 
 		//PREPARING FADE IN/OUT PARALLAX 
 		if (opt.scrolleffect.on) 
-			opt.scrolleffect.layers = new Array();		
+			opt.scrolleffect.layers = new Array();			
 		
-		//WRAP LAYERS INTO 1 CONTAINER TO AVOID FURTHER ISSUES
-		/*container.find('.tp-revslider-slidesli').each(function() {
-			jQuery(this).find('.tp-caption').wrapAll('<div class="tp-layers-container"></div>');
-		});*/
-
 		container.find('.tp-caption, .rs-background-video-layer').each(function(i) {
 			var _nc = jQuery(this),
 				_ = _nc.data(),
@@ -1664,11 +1642,10 @@ var initSlider = function (container,opt) {
 
 				if (_ndata.wrapper_class!==undefined) preclas = preclas+" "+_ndata.wrapper_class;
 				if (_ndata.wrapper_id!==undefined) preid ='id="'+_ndata.wrapper_id+'"';
+
+
+				_nc.wrap('<div '+preid+' class="tp-parallax-wrap '+preclas+'" style="'+specec+' '+ec+'position:'+_pos+';'+dmode+';visibility:hidden"><div class="tp-loop-wrap" style="'+ec+'position:'+_pos+';'+dmode+';"><div class="tp-mask-wrap" style="'+ec+'position:'+_pos+';'+dmode+';" ></div></div></div>');
 				
-				// POINTER EVENTS ADDITION
-				var pevents = '';
-				if(_nc.hasClass('tp-no-events')) pevents = ';pointer-events:none';
-				_nc.wrap('<div '+preid+' class="tp-parallax-wrap '+preclas+'" style="'+specec+' '+ec+'position:'+_pos+';'+dmode+';visibility:hidden'+pevents+'"><div class="tp-loop-wrap" style="'+ec+'position:'+_pos+';'+dmode+';"><div class="tp-mask-wrap" style="'+ec+'position:'+_pos+';'+dmode+';" ></div></div></div>');
 				
 				// ONLY ADD LAYERS TO FADEOUT DYNAMIC LIST WHC
 				if (addtofadeout && opt.scrolleffect.on) 
@@ -1711,7 +1688,7 @@ var initSlider = function (container,opt) {
 				addedApis = _R.checkVideoApis(_nc,opt,addedApis);
 
 			// REMOVE VIDEO AUTOPLAYS FOR MOBILE DEVICES 
-			/*
+			
 			if (_ISM && (!opt.fallbacks.allowHTML5AutoPlayOnAndroid || !htmlvideo)) {
 				if (an == true || an=="true") {
 						_.autoplayonlyfirsttime=false;
@@ -1722,7 +1699,6 @@ var initSlider = function (container,opt) {
 					 ap="off";
 				}
 			} 
-			*/
 
 			//loop =  loop=="none" && _nc.hasClass('rs-background-video-layer') ?  "loopandnoslidestop" : loop;
 
@@ -1784,7 +1760,6 @@ var initSlider = function (container,opt) {
 		// SET ALL LI AN INDEX AND INIT LAZY LOADING
 		opt.allli.each(function(i) {
 			var li = jQuery(this);
-			punchgs.TweenLite.set(this,{perspective:6000}); //PERSPECTIVE
 			opt.rowzones[i] = [];
 			li.find('.rev_row_zone').each(function() {
 				opt.rowzones[i].push(jQuery(this));
@@ -2534,11 +2509,11 @@ var waitForCurrentImages = function(nextli,opt,callback) {
 			}
 		}
 
-		if (opt.vimeoapineeded == true && !window['Vimeo']) {
+		if (opt.vimeoapineeded == true && !window['Froogaloop']) {
 			waitforload = true;
 			if (jQuery.now()-opt.vimeostarttime>5000 && opt.vimeowarning!=true) {
 				opt.vimeowarning= true;
-				var txt = "Vimeo Api Could not be loaded !";
+				var txt = "Vimeo Froogaloop Api Could not be loaded !";
 				if (location.protocol === 'https:') txt = txt + " Please Check and Renew SSL Certificate !";
 				console.error(txt); 
 				opt.c.append('<div style="position:absolute;top:50%;width:100%;color:#e74c3c;  font-size:16px; text-align:center; padding:15px;background:#000; display:block;"><strong>'+txt+'</strong></div>')				 
@@ -2963,10 +2938,7 @@ var letItFree = function(container,nextsh,actsh,nextli,actli,mtl) {
 	nextli.find('.rs-background-video-layer').each(function(i) {		
 		if (_ISM && (!opt.fallbacks.allowHTML5AutoPlayOnAndroid)) return false;
 		var _nc = jQuery(this);
-		
-		// JASON 4th arg for Vimeo
-		_R.resetVideo(_nc,opt,false,true);	
-		
+		_R.resetVideo(_nc,opt);										
 		punchgs.TweenLite.fromTo(_nc,1,{autoAlpha:0},{autoAlpha:1,ease:punchgs.Power3.easeInOut,delay:0.2,onComplete:function() {		
 			if (_R.animcompleted) _R.animcompleted(_nc,opt);
 		}});

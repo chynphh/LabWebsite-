@@ -222,7 +222,7 @@
                         <li class="list-inline-item">{{ piece_news.date|date:"F j, Y" }}</li>
                     </ul>
                     <h3 class="h2 g-font-weight-300 g-mb-40">
-                        <a class="u-link-v5 g-color-main g-color-primary--hover" href="{% url 'detial' 'news' piece_news.pk %}">{{ piece_news.title }}</a>
+                        <a class="u-link-v5 g-color-main g-color-primary--hover" href="{% url 'detail' 'news' piece_news.pk %}">{{ piece_news.title }}</a>
                     </h3>
                 </article>
                 <!-- End Article -->
@@ -256,7 +256,7 @@
                 <span class="g-color-white-opacity-0_7 g-font-size-10 ">{{ research.date|date:"F j, Y"  }}</span>
               </div>
 
-              <a class="d-inline-block g-brd-bottom g-brd-white g-color-white g-font-weight-600 g-font-size-12 text-uppercase g-text-underline--none--hover g-mb-30" href="{% url 'detial' 'research' research.pk %}">Read more</a>
+              <a class="d-inline-block g-brd-bottom g-brd-white g-color-white g-font-weight-600 g-font-size-12 text-uppercase g-text-underline--none--hover g-mb-30" href="{% url 'detail' 'research' research.pk %}">Read more</a>
             </div>
           </article>
           <!-- End Blog Background Overlay Blocks -->

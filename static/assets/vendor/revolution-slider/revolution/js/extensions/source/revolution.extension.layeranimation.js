@@ -1,10 +1,10 @@
 /************************************************
- * REVOLUTION 5.4.6.5 EXTENSION - LAYER ANIMATION
- * @version: 3.6.5 (10.06.2018)
+ * REVOLUTION 5.4.2 EXTENSION - LAYER ANIMATION
+ * @version: 3.6.3 (17.05.2017)
  * @requires jquery.themepunch.revolution.js
  * @author ThemePunch
 ************************************************/
-;(function($) {
+(function($) {
 	"use strict";
 
 var _R = jQuery.fn.revolution,
@@ -12,8 +12,8 @@ var _R = jQuery.fn.revolution,
 	_ANDROID = _R.is_android(),
 	extension = {	alias:"LayerAnimation Min JS",
 					name:"revolution.extensions.layeranimation.min.js",
-					min_core: "5.4.6.4",
-					version:"3.6.5"
+					min_core: "5.4.5",
+					version:"3.6.3"
 			  };
 	
 
@@ -344,8 +344,8 @@ jQuery.extend(true,_R, {
 			internrecall = obj.recall,						
 			preset = obj.preset,
 			rtl = jQuery('body').hasClass("rtl"),
-			datas;
-		
+			datas
+
 		_._pw = _._pw===undefined ? _nc.closest('.tp-parallax-wrap') : _._pw;
 		_._lw = _._lw===undefined ? _nc.closest('.tp-loop-wrap') : _._lw;
 		_._mw = _._mw===undefined ? _nc.closest('.tp-mask-wrap') : _._mw;
@@ -556,7 +556,7 @@ jQuery.extend(true,_R, {
 			
 			var asprat = _.aspectratio;
 			if (asprat!=undefined && asprat.split(":").length>1) 			
-				_R.prepareCoveredVideo(opt,_nc);
+				_R.prepareCoveredVideo(asprat,opt,_nc);
 
 			var im = _nc.find('iframe') ? _nc.find('iframe') : im = _nc.find(tag),
 				html5vid = _nc.find('iframe') ? false : true,				
@@ -1559,10 +1559,6 @@ var tweenOnComplete = function(frame_index,frame_max,verylastframe,pw,_,tl,ust,_
 		_.animdirection="out";
 		_.visibleelement=false;
 		_R.unToggleState(_.layertoggledby);
-		//RESET VIDEO AFTER REMOVING LAYER
-		if (_._nctype==="video" && _R.resetVideo) setTimeout(function() {			
-			_R.resetVideo(_nc,opt);			
-		},100);
 	}
 	_.current_frame = frame_index;
 	_.current_timeline = tl;

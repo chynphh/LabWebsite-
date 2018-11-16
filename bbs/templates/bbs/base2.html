@@ -52,7 +52,7 @@
   {% endblock %}
 </head>
 
-<body  style="background-image: url(/static/assets/our-image/home2_1920x1080.jpg);background-repeat:no-repeat; background-attachment:fixed;background-size:100% 100%">
+<body style="background-image: url(/static/assets/img/bg/pattern1.png);">
     <main>
 
     <!-- Header -->
@@ -139,7 +139,7 @@
 
             <!-- Top Notifications -->
             <div class="g-pos-rel g-hidden-sm-down">
-              <a class="d-block text-uppercase u-header-icon-v1 g-pos-rel g-width-40 g-height-40 rounded-circle g-font-size-20" href="#!">
+              <a class="d-block text-uppercase u-header-icon-v1 g-pos-rel g-width-40 g-height-40 rounded-circle g-font-size-20" href="{% url 'add_post' %}">
                 <i class="icon-note g-absolute-centered"></i>
               </a>
             </div>
@@ -211,7 +211,7 @@
                     </a>
                   </li>
                   <li class="mb-0">
-                    <a class="media g-color-primary--hover g-py-5 g-px-20" href="#!">
+                    <a class="media g-color-primary--hover g-py-5 g-px-20" href="{% url 'logout_func' %}">
                       <span class="d-flex align-self-center g-mr-12">
                         <i class="hs-admin-shift-right"></i>
                       </span>

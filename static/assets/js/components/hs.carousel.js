@@ -106,10 +106,6 @@
 
 				$this.on('init', function(event, slick) {
 					$(slick.$slides).css('height', 'auto');
-
-					if(isThumb && setSlidesToShow >= $(slick.$slides).length) {
-						 $this.addClass('slick-transform-off');
-					}
 				});
 
 				if (setInEffect && setOutEffect) {

@@ -2,7 +2,7 @@
  * Datepicker wrapper.
  *
  * @author Htmlstream
- * @version 1.1
+ * @version 1.0
  *
  */
 ;(function ($) {
