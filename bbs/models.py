@@ -97,12 +97,14 @@ class Post(models.Model):
         u'帖子状态', max_length=20, choices=status_choice, default=status_choice[1])
     view = models.IntegerField(u'浏览量', default=1)
     reply = models.IntegerField(u'回复量', default=0)
-    content_html = UEditorField(width=940, height=600, imagePath="/img/",
-                                filePath="media/img/", verbose_name=u"文章内容")
+    # content_html = UEditorField(imagePath="/img/",
+    #                             filePath="media/img/", verbose_name=u"文章内容")
+    content_html = models.TextField(verbose_name=u"文章内容")
     is_top = models.BooleanField(u'是否置顶', default=True)
 
     # 定义外键关系
-    author = models.ForeignKey(MyUser, verbose_name='作者', on_delete=models.CASCADE)
+    author = models.ForeignKey(
+        MyUser, verbose_name='作者', on_delete=models.CASCADE)
     # creator_id = models.IntegerField(u'创建者ID')
 
     def increase_view(self):
@@ -123,12 +125,13 @@ class Post(models.Model):
         app_label = 'bbs'
 
 
-
 class Reply(models.Model):
-    post = models.ForeignKey(Post, related_name='reply_set', on_delete=models.CASCADE)
+    post = models.ForeignKey(
+        Post, related_name='reply_set', on_delete=models.CASCADE)
     user = models.ForeignKey(MyUser, on_delete=models.CASCADE)
-    content_html = UEditorField(width=940, height=600, imagePath="/img/",
-                                filePath="media/img/", verbose_name=u"回复内容")
+    # content_html = UEditorField(imagePath="/img/",
+    #                             filePath="media/img/", verbose_name=u"回复内容")
+    content_html = models.TextField(verbose_name=u"回复内容")
     created_time = models.DateTimeField(auto_now_add=True, verbose_name='创建时间')
 
     def __str__(self):  # __str__ on Python 3
@@ -139,20 +142,19 @@ class Reply(models.Model):
 
 
 class Comment(models.Model):
-    reply = models.ForeignKey(Reply, related_name='comment_set', on_delete=models.CASCADE)
-    user = models.ForeignKey(MyUser, related_name='comment_user_set', on_delete=models.CASCADE)
-    user_to = models.ForeignKey(MyUser, related_name='comment_user_to_set', on_delete=models.CASCADE)
+    reply = models.ForeignKey(
+        Reply, related_name='comment_set', on_delete=models.CASCADE)
+    user = models.ForeignKey(
+        MyUser, related_name='comment_user_set', on_delete=models.CASCADE)
+    user_to = models.ForeignKey(
+        MyUser, related_name='comment_user_to_set', on_delete=models.CASCADE)
     created_time = models.DateTimeField(auto_now_add=True, verbose_name='创建时间')
-    # content_html = UEditorField(width=940, height=600, imagePath="/img/",
+    # content = UEditorField(imagePath="/img/",
     #                             filePath="media/img/", verbose_name=u"评论内容")
-    content_html = models.TextField()
-
+    content = models.TextField(verbose_name=u'评论内容')
 
     def __str__(self):  # __str__ on Python 3
         return f"comment...."
 
     class Meta:
         app_label = 'bbs'
-
-
-

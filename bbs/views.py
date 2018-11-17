@@ -69,21 +69,26 @@ def add_comment(request, reply_pk, user_to_pk):
             comment.user_to = user_to
             comment.save()
             # print(comment)
+            post.save()
+
             print('add reply success')
             return redirect(post)
         else:
+            reply_form = ReplyForm()
             reply_list = post.reply_set.all().order_by('created_time')
             comment_list = []
             for reply in reply_list:
                 cur_list = reply.comment_set.all().order_by('created_time')
                 comment_list.append(cur_list)
             context = {'post': post,
-                       'form': form,
+                       'reply_form': reply_form,
+                       'comment_form': comment_form,
                        'reply_list': reply_list,
                        'comment_list': comment_list,
                        }
             return render(request, 'bbs/detail.html', context=context)
     return redirect(post)
+
 
 @login_required
 def add_reply(request, pk):
@@ -96,16 +101,19 @@ def add_reply(request, pk):
             reply.post = post
             reply.save()
             post.increase_reply()
+            post.save()
             print('add reply success')
             return redirect(post)
         else:
+            comment_form = CommentForm()
             reply_list = post.reply_set.all().order_by('created_time')
             comment_list = []
             for reply in reply_list:
                 cur_list = reply.comment_set.all().order_by('created_time')
                 comment_list.append(cur_list)
             context = {'post': post,
-                       'form': form,
+                       'comment_form': comment_form,
+                       'reply_form': reply_form,
                        'reply_list': reply_list,
                        'comment_list': comment_list,
                        }

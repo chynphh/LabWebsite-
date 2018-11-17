@@ -1,40 +1,58 @@
 {% extends "bbs/base2.html" %}
 
+{% block css %}
+<link  rel="stylesheet" href="/static/assets/vendor/malihu-scrollbar/jquery.mCustomScrollbar.min.css">
+<link  rel="stylesheet" href="/static/assets/vendor/dzsparallaxer/dzsparallaxer.css">
+<link  rel="stylesheet" href="/static/assets/vendor/dzsparallaxer/dzsscroller/scroller.css">
+<link  rel="stylesheet" href="/static/assets/vendor/dzsparallaxer/advancedscroller/plugin.css">
+<link  rel="stylesheet" href="/static/assets/vendor/slick-carousel/slick/slick.css">
+
+{% endblock %}
+
 {% block content %}
-    <div class="row no-gutters g-pos-rel g-overflow-x-hidden" style="background-color:white">        
+<section class="container" >
+
+    <section class="dzsparallaxer auto-init height-is-based-on-content g-mt-20 " data-options="{direction: 'reverse', settings_mode_oneelement_max_offset: '150'}">
+        <div class="divimage dzsparallaxer--target w-100 g-bg-repeat " style="height: 200%; background-image: url(/static/assets/img/bg/pattern4.png)"></div>
         <!-- Center Column -->
-        <div class="container">
-            <div class="row">
-                <div class="col-md-6 col-md-offset-3">
-                    <form class="form-horizontal" autocomplete="off" action="{% url 'add_post' %}" method="post" role="form">
-                        {% csrf_token %}
-                        {{ form.media }}
-                        <div class="form-group">
-                            <label for="{{ form.title.id_for_label }}" class="col-md-2 control-label">{{ form.title.label }}</label>
-                            <div class="col-md-10">
-                                {{ form.title }}
-                            </div>
+        <div class="container g-pa-30">
+                <form class="form-horizontal" autocomplete="off" action="{% url 'add_post' %}" method="post" role="form">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label for="{{ form.title.id_for_label }}" class="col-md-2 control-label">{{ form.title.label }}</label>
+                        <div class="col-md-10">
+                            <input type="text" name="title" maxlength="50" required id="id_title" class="form-control rounded-0 form-control-md" placeholder="Title">
                         </div>
-                        <div class="form-group">
-                            <label for="{{ form.content_html.id_for_label }}" class="col-md-2 control-label">{{ form.content_html.label }}</label>
-                            <div class="col-md-10">
-                                {{ form.content_html }}
-                            </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="{{ form.content_html.id_for_label }}" class="col-md-2 control-label">{{ form.content_html.label }}</label>
+                        <div class="col-md-10">
+                            <textarea  name="content_html" required id="id_content_html" class="form-control form-control-md rounded-0" rows="3" ></textarea>
                         </div>
-                        <div class="form-group">
-                            <label for="{{ form.status.id_for_label }}" class="col-md-2 control-label">{{ form.status.label }}</label>
-                            <div class="col-md-10">
-                                {{ form.status }}
-                            </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="{{ form.status.id_for_label }}" class="col-md-2 control-label">{{ form.status.label }}</label>
+                        <div class="col-md-10">
+                            <select class="form-control" name="status" id="id_status">
+                              <option value="Closed.">已关闭</option>
+                              <option value="Open." selected>开放中</option>
+                            </select>
                         </div>
-                        <div class="form-group">
-                            <div class="col-sm-offset-2 col-sm-10">
-                                <button type="submit" class="btn btn-default">发布</button>
-                            </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-offset-2 col-sm-10">
+                            <button type="submit" class="btn btn-default">发布</button>
                         </div>
-                    </form>
-                </div>
-            </div>
+                    </div>
+                </form>
         </div>
-    </div>
+    </section>
+</section>
+
+{% endblock %}
+
+{% block js %}
+<script  src="/static/assets/vendor/dzsparallaxer/dzsparallaxer.js"></script>
+<script  src="/static/assets/vendor/dzsparallaxer/dzsscroller/scroller.js"></script>
+<script  src="/static/assets/vendor/dzsparallaxer/advancedscroller/plugin.js"></script>
 {% endblock %}
