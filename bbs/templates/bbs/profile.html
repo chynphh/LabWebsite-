@@ -1,0 +1,169 @@
+{% extends "bbs/base2.html" %}
+
+{% block css %}
+<link  rel="stylesheet" href="/static/assets/vendor/malihu-scrollbar/jquery.mCustomScrollbar.min.css">
+<link  rel="stylesheet" href="/static/assets/vendor/dzsparallaxer/dzsparallaxer.css">
+<link  rel="stylesheet" href="/static/assets/vendor/dzsparallaxer/dzsscroller/scroller.css">
+<link  rel="stylesheet" href="/static/assets/vendor/dzsparallaxer/advancedscroller/plugin.css">
+<link  rel="stylesheet" href="/static/assets/vendor/slick-carousel/slick/slick.css">
+
+{% endblock %}
+
+{% block content %}
+<section class="container" >
+    <section class="dzsparallaxer auto-init height-is-based-on-content g-mt-60 " data-options="{direction: 'reverse', settings_mode_oneelement_max_offset: '150'}">
+        <div class="divimage dzsparallaxer--target w-100 g-bg-repeat " style="height: 200%; background-image: url(/static/assets/img/bg/pattern4.png)"></div>
+        <form class="form-horizontal" autocomplete="off" action="{% url 'profile' %}" method="post" role="form">
+          {% csrf_token %}
+          <div class="col g-ml-45 g-ml-0--lg g-pb-65--md">
+            <div class="g-pa-20">
+              <div class="row">
+                <div class="col-md-3 g-mb-30 g-mb-0--md">
+                  <div class="h-100 g-brd-around g-brd-gray-light-v7 g-rounded-4 g-pa-15 g-pa-20--md">
+                    <!-- User Information -->
+                    <section class="text-center g-mb-30 g-mb-50--md">
+                      <div class="d-inline-block g-pos-rel g-mb-20">
+                      <div class="u-badge-v2--lg u-badge--bottom-right g-width-32 g-height-32 g-bg-lightblue-v3 g-bg-primary--hover g-mb-20 g-mr-20 fileinput-button">
+                        <i class="hs-admin-pencil g-absolute-centered g-font-size-16 g-color-white"></i>
+                      </div>
+                        <img class="img-fluid rounded-circle" src="/media/{{ user.avatar }}" id="user_avatar" alt="Image description">
+
+                      </div>
+
+                      <h3 class="g-font-weight-300 g-font-size-20 g-color-black mb-0">{{ user.name }}</h3>
+                    </section>
+                    <!-- User Information -->
+                  </div>
+
+
+
+                </div>
+
+                <div class="col-md-9">
+                  <div class="h-100 g-brd-around g-brd-gray-light-v7 g-rounded-4 g-pa-15 g-pa-20--md">
+                      <header>
+                        <h2 class="text-uppercase g-font-size-12 g-font-size-default--md g-color-black mb-0">General information</h2>
+                      </header>
+
+                      <hr class="d-flex g-brd-gray-light-v7 g-my-15 g-my-30--md">
+
+                      <div class="row g-mb-20">
+                        <div class="col-md-3 align-self-center g-mb-5 g-mb-0--md">
+                          <label class="mb-0" for="username">Username</label>
+                        </div>
+                        <div class="col-md-9 align-self-center">
+                          <div class="form-group g-pos-rel mb-0">
+                            <span class="g-pos-abs g-top-0 g-right-0 d-block g-width-40 h-100 opacity-0 g-opacity-1--success">
+                            <i class="hs-admin-check g-absolute-centered g-font-size-default g-color-secondary"></i>
+                          </span>
+                            <input id="id_username" name="username" class="form-control form-control-md g-brd-gray-light-v7 g-brd-lightblue-v3--focus g-brd-primary--error g-rounded-4 g-px-20 g-py-12" type="text" value="{{ user.username }}"
+                            disabled="" aria-required="true">
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="row g-mb-20">
+                        <div class="col-md-3 align-self-center g-mb-5 g-mb-0--md">
+                          <label class="mb-0" for="name">Name</label>
+                        </div>
+
+                        <div class="col-md-9 align-self-center">
+                          <div class="form-group g-pos-rel mb-0">
+                            <span class="g-pos-abs g-top-0 g-right-0 d-block g-width-40 h-100 opacity-0 g-opacity-1--success">
+                            <i class="hs-admin-check g-absolute-centered g-font-size-default g-color-secondary"></i>
+                          </span>
+                            <input id="id_name" name="name" class="form-control form-control-md g-brd-gray-light-v7 g-brd-lightblue-v3--focus g-brd-primary--error g-rounded-4 g-px-20 g-py-12" type="text" value="{{ user.name }}"  maxlength="50" required="required" aria-required="true">
+                          </div>
+                        </div>
+                      </div>
+
+                      <header>
+                        <h2 onclick="hideAndShow();" class="text-uppercase g-font-size-12 g-font-size-default--md g-color-black mb-0">Change password</h2>
+                      </header>
+                      <div id="changePwd" style="display:none">
+
+                        <hr class="d-flex g-brd-gray-light-v7 g-my-15 g-my-30--md">
+
+                        <div class="row g-mb-20">
+                          <div class="col-md-3">
+                            <label class="mb-0" for="#currentPassword">Current Password</label>
+                          </div>
+
+                          <div class="col-md-9 align-self-center">
+                            <div>
+                              <div class="form-group g-pos-rel mb-0">
+                                <span class="g-pos-abs g-top-0 g-right-0 d-block g-width-40 h-100 opacity-0 g-opacity-1--success">
+                                <i class="hs-admin-check g-absolute-centered g-font-size-default g-color-secondary"></i>
+                              </span>
+                                <input id="currentPassword" name="currentPassword" class="form-control form-control-md g-brd-gray-light-v7 g-brd-lightblue-v3--focus g-brd-primary--error g-rounded-4 g-px-20 g-py-12" type="password">
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+
+                        <div class="row g-mb-20">
+                          <div class="col-md-3 align-self-center g-mb-5 g-mb-0--md">
+                            <label class="mb-0" for="#newPassword">New Password</label>
+                          </div>
+
+                          <div class="col-md-9 align-self-center">
+                            <div class="form-group g-pos-rel mb-0">
+                              <span class="g-pos-abs g-top-0 g-right-0 d-block g-width-40 h-100 opacity-0 g-opacity-1--success">
+                              <i class="hs-admin-check g-absolute-centered g-font-size-default g-color-secondary"></i>
+                            </span>
+                              <input id="newPassword" name="newPassword" class="form-control form-control-md g-brd-gray-light-v7 g-brd-lightblue-v3--focus g-brd-primary--error g-rounded-4 g-px-20 g-py-12" type="password">
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="row g-mb-20">
+                          <div class="col-md-3 align-self-center g-mb-5 g-mb-0--md">
+                            <label class="mb-0" for="#confirmNewPassword">Confirm Password</label>
+                          </div>
+
+                          <div class="col-md-9 align-self-center">
+                            <div class="form-group g-pos-rel mb-0">
+                              <span class="g-pos-abs g-top-0 g-right-0 d-block g-width-40 h-100 opacity-0 g-opacity-1--success">
+                              <i class="hs-admin-check g-absolute-centered g-font-size-default g-color-secondary"></i>
+                            </span>
+                              <input id="confirmNewPassword" name="confirmNewPassword" class="form-control form-control-md g-brd-gray-light-v7 g-brd-lightblue-v3--focus g-brd-primary--error g-rounded-4 g-px-20 g-py-12" type="password"
+                              >
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <hr class="d-flex g-brd-gray-light-v7 g-my-15 g-my-30--md">
+
+                      <div>
+                        <button class="btn btn-md btn-xl--md u-btn-secondary g-width-160--md g-font-size-12 g-font-size-default--md g-mb-10" type="submit">Save Changes</button>
+                        {% for message in profile_messages %}
+                        <h2 class="g-font-size-12 g-font-size-default--md g-color-black mb-0">{{ message }}</h2>
+                        {% endfor %}
+                      </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+    </section>
+</section>
+
+{% endblock %}
+
+{% block js %}
+<script  src="/static/assets/vendor/dzsparallaxer/dzsparallaxer.js"></script>
+<script  src="/static/assets/vendor/dzsparallaxer/dzsscroller/scroller.js"></script>
+<script  src="/static/assets/vendor/dzsparallaxer/advancedscroller/plugin.js"></script>
+<script type="text/javascript">
+     function hideAndShow(){
+        if($("#changePwd").css("display") == "none")
+          $('#changePwd').css("display","block");
+        else{
+          $('#changePwd').css("display","none");
+        }
+     }
+</script>
+{% endblock %}

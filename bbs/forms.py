@@ -8,16 +8,17 @@ class PostForm(forms.ModelForm):
         fields = ['title', 'content_html', 'status']
 
 
-class UsrForm(forms.ModelForm):
+class UserForm(forms.ModelForm):
     class Meta:
         model = MyUser
-        fields = ['username']
+        fields = ['name', 'avatar']
 
 
 class ReplyForm(forms.ModelForm):
     class Meta:
         model = Reply
         fields = ['content_html']
+
 
 class CommentForm(forms.ModelForm):
     class Meta:

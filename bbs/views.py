@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from bbs.models import Post, Reply, Comment, MyUser
-from bbs.forms import PostForm, ReplyForm, CommentForm
+from bbs.forms import PostForm, ReplyForm, CommentForm, UserForm
 
 
 def my_login(request):
@@ -32,8 +32,35 @@ def index(request):
 
 
 @login_required(login_url='login')
-def test(request):
-    return render(request, 'bbs/base2.html')
+def profile(request):
+    a = UserForm(request.user)
+    profile_messages = []
+    if request.method == 'POST':
+        passwd_check = True
+        currentPassword = request.POST['currentPassword']
+        newPassword = request.POST['newPassword']
+        confirmNewPassword = request.POST['confirmNewPassword']
+        if currentPassword != '':
+            if not request.user.check_password(currentPassword):
+                profile_messages.append('密码不正确')
+                passwd_check = False
+            elif newPassword == '' or confirmNewPassword == '':
+                profile_messages.append('密码不能为空')
+                passwd_check = False
+            elif newPassword == confirmNewPassword:
+                profile_messages.append('两次密码不一致')
+                passwd_check = False
+        if passwd_check:
+            new_name = request.POST['name']
+            if new_name != '':
+                request.user.name = new_name
+                if newPassword != '':
+                    request.user.set_password(newPassword)
+                request.user.save()
+                profile_messages.append('资料修改成功！')
+            else:
+                profile_messages.append('名称不能为空')
+    return render(request, 'bbs/profile.html', context={'a':a, 'profile_messages': profile_messages})
 
 
 @login_required(login_url='login')
@@ -47,7 +74,6 @@ def detail(request, pk):
     for reply in reply_list:
         cur_list = reply.comment_set.all().order_by('created_time')
         comment_list.append(cur_list)
-    print(comment_list)
     return render(request, 'bbs/detail.html', locals())
 
 
@@ -56,8 +82,6 @@ def add_comment(request, reply_pk, user_to_pk):
     reply = get_object_or_404(Reply, pk=reply_pk)
     post = reply.post
     user_to = get_object_or_404(MyUser, pk=user_to_pk)
-    print(reply)
-    print(user_to_pk)
     if request.method == 'POST':
         comment_form = CommentForm(request.POST)
         if comment_form.is_valid():
@@ -136,3 +160,13 @@ def add_post(request):
             form.save()
             return redirect('index')
     return render(request, 'bbs/add_post.html', locals())
+
+# @login_required(login_url='login')
+# def uploadImg(request):
+#     if request.method == 'POST':
+#         new_img = IMG(
+#             img=request.FILES.get('img'),
+#             name = request.FILES.get('img').name
+#         )
+#         new_img.save()
+#     return rredirect(request.user)

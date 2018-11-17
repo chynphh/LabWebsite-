@@ -5,6 +5,8 @@ from ckeditor.fields import RichTextField
 import django.utils.timezone as timezone
 from DjangoUeditor.models import UEditorField
 from django.urls import reverse
+from imagekit.models import ProcessedImageField
+from imagekit.processors import ResizeToFill
 
 
 class MyUserManager(BaseUserManager):
@@ -45,6 +47,11 @@ class MyUser(AbstractBaseUser):
 
     is_active = models.BooleanField(default=True)
     is_admin = models.BooleanField(default=False)
+    avatar = ProcessedImageField(upload_to='img/bbs/profile',
+                                 default='img/bbs/profile/default.png', 
+                                 verbose_name='头像',
+                                 #图片将处理成85x85的尺寸
+                                 processors=[ResizeToFill(100,100)],)
 
     objects = MyUserManager()  # 实例化类,这个必须要有
 
@@ -76,11 +83,21 @@ class MyUser(AbstractBaseUser):
     def has_module_perms(self, app_label):
         return True
 
+    def save(self, *args, **kwargs):
+        # 当用户更改头像的时候，avatar.name = '文件名'
+        # 其他情况下avatar.name = 'upload_to/文件名'
+        if len(self.avatar.name.split('/')) == 1:
+            self.avatar.name = self.username + '/' + self.avatar.name
+        super(MyUser, self).save()
+
     @property
     def is_staff(self):
         "Is the user a member of staff?"
         # Simplest possible answer: All admins are staff
         return self.is_admin
+    
+    def get_absolute_url(self):
+        return reverse('profile')
 
 
 class Post(models.Model):

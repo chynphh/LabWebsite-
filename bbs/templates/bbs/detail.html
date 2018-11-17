@@ -19,7 +19,7 @@
             <h2 class="u-heading-v2__title g-mb-10">{{ post.title }}</h2>
         </div>
         <div class="media g-brd-around g-pa-30 g-mb-20">
-            <img class="d-flex g-width-50 g-height-50 rounded-circle g-mt-3 g-mr-15" src="/static/assets/img-temp/100x100/img7.jpg" alt="Image Description">
+            <img class="d-flex g-width-50 g-height-50 rounded-circle g-mt-3 g-mr-15" src="/media/{{ post.author.avatar }}" alt="Image Description">
             <div class="media-body">
                 <div class="g-mb-15">
                     <h5 class="d-flex justify-content-between align-items-center h5 g-color-gray-dark-v1 mb-0">
@@ -48,7 +48,7 @@
     <section class="dzsparallaxer auto-init height-is-based-on-content g-mt-20 " data-options="{direction: 'reverse', settings_mode_oneelement_max_offset: '150'}">
         <div class="divimage dzsparallaxer--target w-100 g-bg-repeat " style="height: 200%; background-image: url(/static/assets/img/bg/pattern4.png)"></div>
         <div class="media g-brd-around g-pa-30 g-mb-20">
-            <img class="d-flex g-width-50 g-height-50 rounded-circle g-mt-3 g-mr-15" src="/static/assets/img-temp/100x100/img7.jpg" alt="Image Description">
+            <img class="d-flex g-width-50 g-height-50 rounded-circle g-mt-3 g-mr-15" src="/media/{{ reply.user.avatar }}" alt="Image Description">
             <div class="media-body">
                 <div class="g-mb-15">
                     <h5 class="d-flex justify-content-between align-items-center h5 g-color-gray-dark-v1 mb-0">
@@ -61,7 +61,7 @@
                     {{ reply.content_html|linebreaks }}
                 </p>
 
-                <ul class="list-inline d-sm-flex my-0">
+                <ul class="list-inline d-sm-flex my-0" onclick="hideAndShow({{ reply.pk }});">
                     <li class="list-inline-item ml-auto">
                         <a class="u-link-v5 g-color-gray-dark-v4 g-color-primary--hover" href="#!">
                             <i class="icon-note g-pos-rel g-top-1 g-mr-3"></i>
@@ -78,7 +78,7 @@
         {% else %}
         <div class="media g-brd-around g-brd-gray-light-v4 g-brd-2  g-brd-black-top g-pa-30 g-ml-40 ">
         {% endif %}
-            <img class="d-flex g-width-50 g-height-50 rounded-circle g-mt-3 g-mr-15" src="/static/assets/img-temp/100x100/img5.jpg" alt="Image Description">
+            <img class="d-flex g-width-50 g-height-50 rounded-circle g-mt-3 g-mr-15" src="/media/{{ comment.user.avatar }}" alt="Image Description">
             <div class="media-body">
                 <div class="g-mb-15">
                     <h5 class="h5 g-color-gray-dark-v1 mb-0">{{comment.user.username}}</h5>
@@ -88,7 +88,7 @@
                     {{ comment.content|linebreaks }}
                 </p>
 
-                <ul class="list-inline d-sm-flex my-0">
+                <ul class="list-inline d-sm-flex my-0" onclick="hideAndShow({{ reply.pk }});">
                     <li class="list-inline-item ml-auto">
                         <a class="u-link-v5 g-color-gray-dark-v4 g-color-primary--hover" href="#!">
                             <i class="icon-note g-pos-rel g-top-1 g-mr-3"></i>
@@ -99,7 +99,7 @@
             </div>
         </div>
         {% endfor %}
-        <div class="container g-pa-30" style="background-color:white">
+        <div id='hideAndShow{{ reply.pk }}' class="container g-pa-30" style="display:none; background-color:white ">
             <form class="form-horizontal" autocomplete="off" action="{% url 'add_comment' reply.pk reply.user.pk %}" method="post" role="form">
                 {% csrf_token %}
                 <div class="form-group">
@@ -143,4 +143,13 @@
 <script  src="/static/assets/vendor/dzsparallaxer/dzsparallaxer.js"></script>
 <script  src="/static/assets/vendor/dzsparallaxer/dzsscroller/scroller.js"></script>
 <script  src="/static/assets/vendor/dzsparallaxer/advancedscroller/plugin.js"></script>
+<script type="text/javascript">
+    function hideAndShow(reply_pk){
+        if($("#hideAndShow"+reply_pk).css("display") == "none")
+          $('#hideAndShow'+reply_pk).css("display","block");
+        else{
+          $('#hideAndShow'+reply_pk).css("display","none");
+        }
+     }
+</script>
 {% endblock %}
