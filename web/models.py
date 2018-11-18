@@ -17,6 +17,7 @@ class Carousel(models.Model):
 
 class Student(models.Model):
     student_type_choice = (
+        (u'Postdoc.', u'博士后'),
         (u'Ph.D.', u'博士生'),
         (u'M.S.', u'硕士生'),
         (u'Undergraduates', u'本科生'),

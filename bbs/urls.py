@@ -12,5 +12,7 @@ urlpatterns = [
     re_path(r'detail/(?P<pk>\d+)', views.detail, name='detail'),
     re_path(r'add_reply/(?P<pk>\d+)', views.add_reply, name='add_reply'),
     re_path(r'add_comment/(?P<reply_pk>\d+)/(?P<user_to_pk>\d+)', views.add_comment, name='add_comment'),
+    path(r'upload', views.upload, name='upload'),
+    re_path(r'delete/(?P<delete_type>[a-z]*)/(?P<pk>\d+)', views.delete, name='delete'),
 
 ]

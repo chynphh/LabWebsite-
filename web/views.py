@@ -53,6 +53,7 @@ def team(request):
     ms = []
     undergraduate = []
     alumni = []
+    postdoc = []
     for stu in students:
         if stu.status is False:
             alumni.append(stu)
@@ -62,14 +63,17 @@ def team(request):
             ms.append(stu)
         elif stu.student_type == 'Undergraduates':
             undergraduate.append(stu)
+        elif stu.student_type == 'Postdoc.':
+            postdoc.append(stu)
 
     alumni = sorted(alumni, key=lambda d: d.year, reverse=True)
     phd = sorted(phd, key=lambda d: d.year)
     ms = sorted(ms, key=lambda d: d.year)
     undergraduate = sorted(undergraduate, key=lambda d: d.year)
+    postdoc = sorted(postdoc, key=lambda d: d.year)
 
     footerData = forFooter()
-    return render(request, 'web/team.html', {'current': [('Ph.D.', phd), ('M.S.', ms), ('Undergraduates', undergraduate)], 'alumni': alumni, 'footerData': footerData})
+    return render(request, 'web/team.html', {'current': [('Postdoc.',postdoc), ('Ph.D.', phd), ('M.S.', ms), ('Undergraduates', undergraduate)], 'alumni': alumni, 'footerData': footerData})
 
 
 def research(request):

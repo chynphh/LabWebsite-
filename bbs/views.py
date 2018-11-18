@@ -32,14 +32,23 @@ def index(request):
 
 
 @login_required(login_url='login')
+def upload(request):
+    print(request.POST)
+    print(request.FILES)
+
+    return render(request, 'bbs/test.html')
+
+
+@login_required(login_url='login')
 def profile(request):
-    a = UserForm(request.user)
     profile_messages = []
+    posts = request.user.post_set.all()
     if request.method == 'POST':
         passwd_check = True
         currentPassword = request.POST['currentPassword']
         newPassword = request.POST['newPassword']
         confirmNewPassword = request.POST['confirmNewPassword']
+        uploadImg = request.FILES.get('uploadImg')
         if currentPassword != '':
             if not request.user.check_password(currentPassword):
                 profile_messages.append('密码不正确')
@@ -56,11 +65,13 @@ def profile(request):
                 request.user.name = new_name
                 if newPassword != '':
                     request.user.set_password(newPassword)
+                if uploadImg is not None:
+                    request.user.avatar = uploadImg
                 request.user.save()
                 profile_messages.append('资料修改成功！')
             else:
                 profile_messages.append('名称不能为空')
-    return render(request, 'bbs/profile.html', context={'a':a, 'profile_messages': profile_messages})
+    return render(request, 'bbs/profile.html', context={'posts':posts, 'profile_messages': profile_messages})
 
 
 @login_required(login_url='login')
@@ -86,8 +97,6 @@ def add_comment(request, reply_pk, user_to_pk):
         comment_form = CommentForm(request.POST)
         if comment_form.is_valid():
             comment = comment_form.save(commit=False)
-            print(comment)
-
             comment.user = request.user
             comment.reply = reply
             comment.user_to = user_to
@@ -161,12 +170,27 @@ def add_post(request):
             return redirect('index')
     return render(request, 'bbs/add_post.html', locals())
 
-# @login_required(login_url='login')
-# def uploadImg(request):
-#     if request.method == 'POST':
-#         new_img = IMG(
-#             img=request.FILES.get('img'),
-#             name = request.FILES.get('img').name
-#         )
-#         new_img.save()
-#     return rredirect(request.user)
+@login_required(login_url='login')
+def delete(request, delete_type, pk):
+    print(delete_type, pk)
+    print(request.path)
+    print(request.get_full_path())
+    if delete_type == 'post':
+        obj = get_object_or_404(Post, pk=pk)
+        if request.user == obj.author:
+            obj.delete()
+        return redirect(request.user)
+    elif delete_type == 'reply':
+        obj = get_object_or_404(Reply, pk=pk)
+        post = obj.post
+        if request.user == obj.user:
+            obj.delete()
+        return redirect(post)
+    elif delete_type == 'comment':    
+        obj = get_object_or_404(Comment, pk=pk)
+        post = obj.reply.post
+
+        if request.user == obj.user:
+            obj.delete()
+        return redirect(post)
+        

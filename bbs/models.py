@@ -121,7 +121,7 @@ class Post(models.Model):
 
     # 定义外键关系
     author = models.ForeignKey(
-        MyUser, verbose_name='作者', on_delete=models.CASCADE)
+        MyUser,related_name='post_set',  verbose_name='作者', on_delete=models.CASCADE)
     # creator_id = models.IntegerField(u'创建者ID')
 
     def increase_view(self):

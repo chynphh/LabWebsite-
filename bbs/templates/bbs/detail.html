@@ -61,12 +61,19 @@
                     {{ reply.content_html|linebreaks }}
                 </p>
 
-                <ul class="list-inline d-sm-flex my-0" onclick="hideAndShow({{ reply.pk }});">
+                <ul class="list-inline d-sm-flex my-0">
                     <li class="list-inline-item ml-auto">
-                        <a class="u-link-v5 g-color-gray-dark-v4 g-color-primary--hover" href="#!">
+                        <a class="u-link-v5 g-color-gray-dark-v4 g-color-primary--hover" onclick="hideAndShow({{ reply.pk }});" href="#!">
                             <i class="icon-note g-pos-rel g-top-1 g-mr-3"></i>
                             Comment
                         </a>
+                        {% ifequal reply.user.pk user.pk %}
+                        &nbsp &nbsp &nbsp
+                        <a class="u-link-v5 g-color-gray-dark-v4 g-color-primary--hover" href="{% url 'delete' 'reply' reply.pk %}">
+                            <i class="hs-admin-layout-placeholder g-pos-rel g-top-1 g-mr-3"></i>
+                            Delete
+                        </a>                                                
+                        {% endifequal %}
                     </li>
                 </ul>
             </div>
@@ -88,12 +95,19 @@
                     {{ comment.content|linebreaks }}
                 </p>
 
-                <ul class="list-inline d-sm-flex my-0" onclick="hideAndShow({{ reply.pk }});">
-                    <li class="list-inline-item ml-auto">
-                        <a class="u-link-v5 g-color-gray-dark-v4 g-color-primary--hover" href="#!">
+                <ul class="list-inline d-sm-flex my-0">
+                    <li class="list-inline-item ml-auto" >
+                        <a class="u-link-v5 g-color-gray-dark-v4 g-color-primary--hover" onclick="hideAndShow({{ reply.pk }});" href="#!">
                             <i class="icon-note g-pos-rel g-top-1 g-mr-3"></i>
                             Comment
                         </a>
+                        {% ifequal comment.user.pk user.pk %}
+                        &nbsp &nbsp &nbsp
+                        <a class="u-link-v5 g-color-gray-dark-v4 g-color-primary--hover" href="{% url 'delete' 'comment' comment.pk %}">
+                            <i class="hs-admin-layout-placeholder g-pos-rel g-top-1 g-mr-3"></i>
+                            Delete
+                        </a>                                                
+                        {% endifequal %}
                     </li>
                 </ul>
             </div>
