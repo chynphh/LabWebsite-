@@ -75,13 +75,22 @@
           <div class="col-auto d-flex g-py-12 g-pl-40--lg ml-auto">
 
             <!-- Top Notifications -->
-            <div class="g-pos-rel g-hidden-sm-down">
+            <div class="g-pos-rel">
               <a class="d-block text-uppercase u-header-icon-v1 g-pos-rel g-width-40 g-height-40 rounded-circle g-font-size-20" href="{% url 'add_post' %}">
-                <i class="icon-note g-absolute-centered"></i>
+                <span>
+                  <i class="icon-note g-absolute-centered"></i>
+                </span>
               </a>
             </div>
-            <!-- End Top Notifications -->
+            <div class="g-pos-rel g-hidden-sm-up">
+              <a class="d-block  text-uppercase u-header-icon-v1 g-pos-rel g-width-40 g-height-40 rounded-circle g-font-size-20" href="{% url 'index' %}" aria-controls="searchMenu" aria-haspopup="true" aria-expanded="false" data-is-mobile-only="true" >
+                <span>
+                <i class="icon-home g-absolute-centered"></i>
+                </span>
+              </a>
+            </div>            <!-- End Top Notifications -->
             <!-- Top User -->
+
             <div class="col-auto d-flex g-pt-5 g-pt-0--sm g-pl-10 g-pl-20--sm">
               <div class="g-pos-rel g-px-10--lg">
                 <a id="profileMenuInvoker" class="d-block" href="#!" aria-controls="profileMenu" aria-haspopup="true" aria-expanded="false" data-dropdown-event="click" data-dropdown-target="#profileMenu" data-dropdown-type="css-animation" data-dropdown-duration="300"

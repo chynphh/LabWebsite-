@@ -1,6 +1,7 @@
 from django.contrib import admin
 from .models import Student, Publictaion, About, Research, News, Carousel
 
+
 class StudentAdmin(admin.ModelAdmin):
     list_display = ('name', 'student_type', 'status',)
 

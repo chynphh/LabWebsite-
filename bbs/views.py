@@ -45,6 +45,7 @@ def profile(request):
     posts = request.user.post_set.all()
     if request.method == 'POST':
         passwd_check = True
+        print(request.POST)
         currentPassword = request.POST['currentPassword']
         newPassword = request.POST['newPassword']
         confirmNewPassword = request.POST['confirmNewPassword']
@@ -56,7 +57,7 @@ def profile(request):
             elif newPassword == '' or confirmNewPassword == '':
                 profile_messages.append('密码不能为空')
                 passwd_check = False
-            elif newPassword == confirmNewPassword:
+            elif newPassword != confirmNewPassword:
                 profile_messages.append('两次密码不一致')
                 passwd_check = False
         if passwd_check:
@@ -183,6 +184,7 @@ def delete(request, delete_type, pk):
     elif delete_type == 'reply':
         obj = get_object_or_404(Reply, pk=pk)
         post = obj.post
+        post.decrease_reply()
         if request.user == obj.user:
             obj.delete()
         return redirect(post)
