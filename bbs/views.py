@@ -3,6 +3,30 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from bbs.models import Post, Reply, Comment, MyUser
 from bbs.forms import PostForm, ReplyForm, CommentForm, UserForm
+from notifications.models import Notification
+from bbs.email import send_text_email
+
+# 修改未读消息为已读装饰器
+def notifications_read(func):
+    def wrapper(request, *args, **kwargs):
+        # print(request.get_full_path())
+        notify_key = 'notification'
+        if request.GET.get(notify_key):
+            try:
+                # 获取消息
+                notify_id = int(request.GET[notify_key])
+                notify = Notification.objects.get(pk=notify_id)
+                # 标记为已读
+                notify.unread = False
+                notify.save()
+            except ValueError:
+                # int转换错误，不处理
+                pass
+            except Notification.DoesNotExist:
+                # 消息不存在，不处理
+                pass
+        return func(request, *args, **kwargs)
+    return wrapper
 
 
 def my_login(request):
@@ -45,7 +69,6 @@ def profile(request):
     posts = request.user.post_set.all()
     if request.method == 'POST':
         passwd_check = True
-        print(request.POST)
         currentPassword = request.POST['currentPassword']
         newPassword = request.POST['newPassword']
         confirmNewPassword = request.POST['confirmNewPassword']
@@ -60,10 +83,26 @@ def profile(request):
             elif newPassword != confirmNewPassword:
                 profile_messages.append('两次密码不一致')
                 passwd_check = False
-        if passwd_check:
+
+        email_check = True
+        email = request.POST['email']
+        mailnotify = bool(request.POST.get('mailnotify', False))
+        if mailnotify:
+            if email == '':
+                profile_messages.append('邮箱不能为空')
+                email_check = False
+        try:
+            request.user.email = email
+            request.user.mailnotify = mailnotify
+        except Exception as e:
+            profile_messages.append('邮箱格式不对')
+            email_check = False
+
+        if passwd_check and email_check:
             new_name = request.POST['name']
             if new_name != '':
                 request.user.name = new_name
+                request.user.email
                 if newPassword != '':
                     request.user.set_password(newPassword)
                 if uploadImg is not None:
@@ -75,6 +114,7 @@ def profile(request):
     return render(request, 'bbs/profile.html', context={'posts':posts, 'profile_messages': profile_messages})
 
 
+@notifications_read
 @login_required(login_url='login')
 def detail(request, pk):
     post = get_object_or_404(Post, pk=pk)
@@ -89,12 +129,13 @@ def detail(request, pk):
     return render(request, 'bbs/detail.html', locals())
 
 
-@login_required
-def add_comment(request, reply_pk, user_to_pk):
+@login_required(login_url='login')
+def add_comment(request, reply_pk):
     reply = get_object_or_404(Reply, pk=reply_pk)
     post = reply.post
-    user_to = get_object_or_404(MyUser, pk=user_to_pk)
     if request.method == 'POST':
+        user_to_pk = request.POST['user_to']
+        user_to = get_object_or_404(MyUser, pk=user_to_pk)
         comment_form = CommentForm(request.POST)
         if comment_form.is_valid():
             comment = comment_form.save(commit=False)
@@ -104,8 +145,6 @@ def add_comment(request, reply_pk, user_to_pk):
             comment.save()
             # print(comment)
             post.save()
-
-            print('add reply success')
             return redirect(post)
         else:
             reply_form = ReplyForm()
@@ -124,7 +163,7 @@ def add_comment(request, reply_pk, user_to_pk):
     return redirect(post)
 
 
-@login_required
+@login_required(login_url='login')
 def add_reply(request, pk):
     post = get_object_or_404(Post, pk=pk)
     if request.method == 'POST':
@@ -136,7 +175,6 @@ def add_reply(request, pk):
             reply.save()
             post.increase_reply()
             post.save()
-            print('add reply success')
             return redirect(post)
         else:
             comment_form = CommentForm()
@@ -173,9 +211,6 @@ def add_post(request):
 
 @login_required(login_url='login')
 def delete(request, delete_type, pk):
-    print(delete_type, pk)
-    print(request.path)
-    print(request.get_full_path())
     if delete_type == 'post':
         obj = get_object_or_404(Post, pk=pk)
         if request.user == obj.author:
@@ -195,4 +230,11 @@ def delete(request, delete_type, pk):
         if request.user == obj.user:
             obj.delete()
         return redirect(post)
-        
+
+@login_required(login_url='login')
+def user_mark_all_read(request):
+    user = request.user
+    notifies = user.notifications.unread()
+    notifies.mark_all_as_read()  # 标记所有未读为已读
+    return redirect('index')
+

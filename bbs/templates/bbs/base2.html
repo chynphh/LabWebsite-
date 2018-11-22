@@ -8,6 +8,8 @@
 <head>
         {% load static %}
         {% load my_filter %}
+        {% load notifications_tags %}
+        {% notifications_unread as unread_count %}
   {% block title %}
        <title>BBS</title>
   {% endblock %}
@@ -82,15 +84,53 @@
                 </span>
               </a>
             </div>
+            <div class="g-pos-rel">
+              <a id="messagesInvoker" class="d-block text-uppercase u-header-icon-v1 g-pos-rel g-width-40 g-height-40 rounded-circle g-font-size-20" href="#!" aria-controls="messagesMenu" aria-haspopup="true" aria-expanded="false" data-dropdown-event="click" data-dropdown-target="#messagesMenu"
+              data-dropdown-type="css-animation" data-dropdown-duration="300" data-dropdown-animation-in="fadeIn" data-dropdown-animation-out="fadeOut">
+              {% if unread_count %}
+                <span class="u-badge-v1 g-top-7 g-right-7 g-width-18 g-height-18 g-bg-primary g-font-size-10 g-color-white rounded-circle p-0">{{ unread_count }}</span>                
+              {% endif %}
+                <i class="hs-admin-comment-alt g-absolute-centered"></i>
+              </a>
+
+              <!-- Top Messages List -->
+              <div id="messagesMenu" class="g-absolute-centered--x g-width-340 g-max-width-400 g-mt-17 rounded" aria-labelledby="messagesInvoker">
+                <div class="media u-header-dropdown-bordered-v1 g-pa-20">
+                  <h4 class="d-flex align-self-center text-uppercase g-font-size-default g-letter-spacing-0_5 g-mr-20 g-mb-0">{{ unread_count }} new messages</h4>
+                  <div class="media-body align-self-center text-right">
+                    <a class="g-color-secondary" href="{% url 'user_mark_all_read' %}">View All</a>
+                  </div>
+                </div>
+
+                <ul class="p-0 mb-0">
+                  {% for notification in user.notifications.unread %}
+                  <!-- Top Messages List Item -->
+                  <li class="media g-pos-rel u-header-dropdown-item-v1 g-pa-20">
+                    <div class="media-body">
+                      <h5 class="g-font-size-16 g-font-weight-400 g-mb-5"><a href="{{notification.target.get_absolute_url}}?notification={{notification.pk}}#{{notification.action_object|get_class_name|lower}}{{notification.action_object.pk}}">{{ notification.verb }}</a></h5>
+                      <em class="d-flex align-self-center align-items-center g-font-style-normal g-color-lightblue-v2">
+                        <i class="hs-admin-time icon-clock g-mr-5"></i> <small>{{notification.timesince}} ago</small>
+                      </em>
+                    </div>
+                  </li>
+                  <!-- End Top Messages List Item -->
+                  {% endfor %}
+                </ul>
+              </div>
+              <!-- End Top Messages List -->
+            </div>
+          <!-- End Top Messages -->
+
             <div class="g-pos-rel g-hidden-sm-up">
               <a class="d-block  text-uppercase u-header-icon-v1 g-pos-rel g-width-40 g-height-40 rounded-circle g-font-size-20" href="{% url 'index' %}" aria-controls="searchMenu" aria-haspopup="true" aria-expanded="false" data-is-mobile-only="true" >
                 <span>
                 <i class="icon-home g-absolute-centered"></i>
                 </span>
               </a>
-            </div>            <!-- End Top Notifications -->
+            </div>            
+            <!-- End Top Notifications -->
+            
             <!-- Top User -->
-
             <div class="col-auto d-flex g-pt-5 g-pt-0--sm g-pl-10 g-pl-20--sm">
               <div class="g-pos-rel g-px-10--lg">
                 <a id="profileMenuInvoker" class="d-block" href="#!" aria-controls="profileMenu" aria-haspopup="true" aria-expanded="false" data-dropdown-event="click" data-dropdown-target="#profileMenu" data-dropdown-type="css-animation" data-dropdown-duration="300"

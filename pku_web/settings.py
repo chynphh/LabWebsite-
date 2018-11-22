@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'web',
     'bbs',
 
+    'notifications',
     'DjangoUeditor',
     'ckeditor',
     'ckeditor_uploader'
@@ -85,7 +86,7 @@ WSGI_APPLICATION = 'pku_web.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'ml_web',
+        'NAME': 'ml_bbs',
         'USER': 'ml',
         'PASSWORD': 'mlpasswd',
         'HOST': '127.0.0.1',
@@ -110,14 +111,15 @@ DATABASES = {
 }
 
 DATABASES_APPS_MAPPING = {
-    'web': 'default',
-    'bbs': 'ml_bbs',
+    'web': 'ml_web',
+    'bbs': 'default',
     'admin':'default',
     'auth':'default',
     'contenttypes':'default',
     'sessions':'default',
     'messages':'default',
     'staticfiles':'default',
+    'notifications':'default',
 }
 
 DATABASE_ROUTERS = ['pku_web.database_app_router.DatabaseAppsRouter']
@@ -128,6 +130,7 @@ AUTHENTICATION_BACKENDS = [
 'bbs.bbs_backend.UsernamePasswordAuth',
 ]
 
+MY_USER_MODEL = "bbs.MyUser"
 # Password validation
 # https://docs.djangoproject.com/en/2.0/ref/settings/#auth-password-validators
 
@@ -150,7 +153,8 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/2.0/topics/i18n/
 
-LANGUAGE_CODE = 'zh-Hans'
+# LANGUAGE_CODE = 'zh-Hans'
+LANGUAGE_CODE = 'en-us'
 
 TIME_ZONE = 'Asia/Shanghai'
 
@@ -203,3 +207,12 @@ CKEDITOR_ALLOW_NONIMAGE_FILES = False
 CKEDITOR_RESTRICT_BY_USER = True
 CKEDITOR_RESTRICT_BY_DATE = True
 CKEDITOR_BROWSE_SHOW_DIRS = True
+
+
+EMAIL_USE_SSL = True
+EMAIL_HOST = 'smtp.163.com'  # 如果是 163 改成 smtp.163.com
+EMAIL_PORT = 465
+EMAIL_HOST_USER = 'ml_bbs@163.com' # 帐号
+EMAIL_HOST_PASSWORD = 'mlpasswd1'  # 密码
+EMAIL_SUBJECT_PREFIX = '[ml_bbs]'  #为邮件标题的前缀,默认是'[django]'
+DEFAULT_FROM_EMAIL = 'ml_bbs <ml_bbs@163.com>'

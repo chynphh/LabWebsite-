@@ -1,4 +1,3 @@
-# coding:utf-8
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
 from django.contrib.auth.hashers import make_password, check_password
@@ -48,14 +47,10 @@ class MyUser(AbstractBaseUser):
 
     is_active = models.BooleanField(default=True)
     is_admin = models.BooleanField(default=False)
-    # avatar = ProcessedImageField(upload_to='img/bbs/profile/',
-    #                              default='img/bbs/profile/default.png', 
-    #                              verbose_name='头像',
-    #                              #图片将处理成85x85的尺寸
-    #                              processors=[ResizeToFill(100,100)],)
     avatar = models.ImageField(verbose_name='头像', upload_to='img/bbs/profile/',default='img/bbs/profile/default.png', height_field=None,
                               width_field=None, help_text='必须上传尺寸为100x100的图片，否则显示会有问题。')
-
+    email = models.EmailField(u'邮箱', blank=True)
+    mailnotify = models.BooleanField(default=False)
     objects = MyUserManager()  # 实例化类,这个必须要有
 
     USERNAME_FIELD = 'username'
@@ -179,6 +174,9 @@ class Comment(models.Model):
 
     def __str__(self):  # __str__ on Python 3
         return f"comment...."
+
+    def get_absolute_url(self):
+        return reverse('detail', kwargs={'pk': self.reply.post.pk})
 
     class Meta:
         app_label = 'bbs'
