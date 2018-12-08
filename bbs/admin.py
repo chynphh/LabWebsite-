@@ -1,5 +1,6 @@
 from django.contrib import admin
 from .models import Post, MyUser, Reply, Comment
+from django.db import models
 
 # Register your models here.
 
@@ -24,3 +25,14 @@ admin.site.register(Comment, CommentAdmin)
 admin.site.register(Reply, ReplyAdmin)
 admin.site.register(Post, PostAdmin)
 admin.site.register(MyUser, MyUserAdmin)
+
+
+from martor.widgets import AdminMartorWidget
+from .models import Martor
+
+class MartorAdmin(admin.ModelAdmin):
+    formfield_overrides = {
+        models.TextField: {'widget': AdminMartorWidget},
+    }
+
+admin.site.register(Martor, MartorAdmin)
