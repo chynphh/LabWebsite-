@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'bbs',
 
     'notifications',
+    # 'mdeditor',
     'DjangoUeditor',
     'ckeditor',
     'ckeditor_uploader'

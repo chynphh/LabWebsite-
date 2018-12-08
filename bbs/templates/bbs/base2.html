@@ -6,10 +6,10 @@
 <html lang="en">
 
 <head>
-        {% load static %}
-        {% load my_filter %}
-        {% load notifications_tags %}
-        {% notifications_unread as unread_count %}
+  {% load static %}
+  {% load my_filter %}
+  {% load notifications_tags %}
+  {% notifications_unread as unread_count %}
   {% block title %}
        <title>BBS</title>
   {% endblock %}
@@ -103,11 +103,11 @@
                 </div>
 
                 <ul class="p-0 mb-0">
-                  {% for notification in user.notifications.unread %}
+                  {% for notification in user.notifications.unread|slice:":5"  %}
                   <!-- Top Messages List Item -->
                   <li class="media g-pos-rel u-header-dropdown-item-v1 g-pa-20">
                     <div class="media-body">
-                      <h5 class="g-font-size-16 g-font-weight-400 g-mb-5"><a href="{{notification.target.get_absolute_url}}?notification={{notification.pk}}#{{notification.action_object|get_class_name|lower}}{{notification.action_object.pk}}">{{ notification.verb }}</a></h5>
+                      <h5 class="g-font-size-16 g-font-weight-400 g-mb-5"><a href="{{notification.target.get_absolute_url}}?notification={{notification.pk}}#{{notification.action_object|get_class_name|lower}}{{notification.action_object.pk}}">{{ notification.verb }}</a></h5> 
                       <em class="d-flex align-self-center align-items-center g-font-style-normal g-color-lightblue-v2">
                         <i class="hs-admin-time icon-clock g-mr-5"></i> <small>{{notification.timesince}} ago</small>
                       </em>

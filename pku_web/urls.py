@@ -24,7 +24,7 @@ urlpatterns = [
     path(r'bbs/', include('bbs.urls')),
     path(r'admin/', admin.site.urls),
     re_path(r'^ckeditor/', include('ckeditor_uploader.urls')),
-    # re_path(r'^notifications/', include('notifications.urls')),
+    # path(r'mdeditor/', include('mdeditor.urls')),
     re_path(r'^notifications/', include('notifications.urls', namespace='notifications')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
