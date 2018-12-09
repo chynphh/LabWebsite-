@@ -2,9 +2,21 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from bbs.models import Post, Reply, Comment, MyUser
-from bbs.forms import PostForm, ReplyForm, CommentForm, UserForm
+from bbs.forms import PostForm, ReplyForm, CommentForm, UserForm, MartorForm
 from notifications.models import Notification
 from bbs.email import send_text_email
+
+import os
+import json
+import uuid
+
+from django.conf import settings
+from django.http import HttpResponse
+from django.utils.translation import ugettext_lazy as _
+from django.core.files.storage import default_storage
+from django.core.files.base import ContentFile
+
+from martor.utils import LazyEncoder
 
 # 修改未读消息为已读装饰器
 def notifications_read(func):
@@ -123,9 +135,11 @@ def detail(request, pk):
     post.increase_view()
     reply_list = post.reply_set.all().order_by('created_time')
     comment_list = []
+    comment_form_list = []
     for reply in reply_list:
         cur_list = reply.comment_set.all().order_by('created_time')
         comment_list.append(cur_list)
+        comment_form_list.append(CommentForm())
     return render(request, 'bbs/detail.html', locals())
 
 
@@ -136,30 +150,40 @@ def add_comment(request, reply_pk):
     if request.method == 'POST':
         user_to_pk = request.POST['user_to']
         user_to = get_object_or_404(MyUser, pk=user_to_pk)
-        comment_form = CommentForm(request.POST)
-        if comment_form.is_valid():
-            comment = comment_form.save(commit=False)
-            comment.user = request.user
-            comment.reply = reply
-            comment.user_to = user_to
-            comment.save()
-            # print(comment)
-            post.save()
-            return redirect(post)
-        else:
-            reply_form = ReplyForm()
-            reply_list = post.reply_set.all().order_by('created_time')
-            comment_list = []
-            for reply in reply_list:
-                cur_list = reply.comment_set.all().order_by('created_time')
-                comment_list.append(cur_list)
-            context = {'post': post,
-                       'reply_form': reply_form,
-                       'comment_form': comment_form,
-                       'reply_list': reply_list,
-                       'comment_list': comment_list,
-                       }
-            return render(request, 'bbs/detail.html', context=context)
+
+        comment = Comment()
+        comment.content=request.POST[f'content{reply_pk}']
+        comment.user = request.user
+        comment.reply = reply
+        comment.user_to = user_to
+        comment.save()
+        post.save()
+        return redirect(post)
+
+        # comment_form = CommentForm(request.POST)
+        # if comment_form.is_valid():
+        #     comment = comment_form.save(commit=False)
+        #     comment.user = request.user
+        #     comment.reply = reply
+        #     comment.user_to = user_to
+        #     comment.save()
+        #     # print(comment)
+        #     post.save()
+        #     return redirect(post)
+        # else:
+        #     reply_form = ReplyForm()
+        #     reply_list = post.reply_set.all().order_by('created_time')
+        #     comment_list = []
+        #     for reply in reply_list:
+        #         cur_list = reply.comment_set.all().order_by('created_time')
+        #         comment_list.append(cur_list)
+        #     context = {'post': post,
+        #                'reply_form': reply_form,
+        #                'comment_form': comment_form,
+        #                'reply_list': reply_list,
+        #                'comment_list': comment_list,
+        #                }
+        #     return render(request, 'bbs/detail.html', context=context)
     return redirect(post)
 
 
@@ -231,10 +255,68 @@ def delete(request, delete_type, pk):
             obj.delete()
         return redirect(post)
 
-@login_required(login_url='login')
+@login_required(login_url='login''bbs/detail.html',)
 def user_mark_all_read(request):
     user = request.user
     notifies = user.notifications.unread()
     notifies.mark_all_as_read()  # 标记所有未读为已读
     return redirect('index')
 
+def test(request):
+    form = MartorForm()
+    return render(request, 'bbs/test.html', {'form': form})
+
+def test_post(request):
+    new_form = MartorForm()
+    if request.method == 'POST':
+        form = MartorForm(request.POST)
+        form.save()
+        return redirect('index')
+    return render(request, 'bbs/test.html', {'form': new_form})
+
+
+@login_required
+def markdown_uploader(request):
+    """
+    Makdown image upload for locale storage
+    and represent as json to markdown editor.
+    """
+    print('fark2131231')
+    if request.method == 'POST' and request.is_ajax():
+        if 'markdown-image-upload' in request.FILES:
+            image = request.FILES['markdown-image-upload']
+            image_types = [
+                'image/png', 'image/jpg',
+                'image/jpeg', 'image/pjpeg', 'image/gif'
+            ]
+            # print(dir(image))
+            if image.content_type not in image_types:
+                data = json.dumps({
+                    'status': 405,
+                    'error': _('Bad image format.')
+                }, cls=LazyEncoder)
+                return HttpResponse(
+                    data, content_type='application/json', status=405)
+
+            if image.size > settings.MAX_IMAGE_UPLOAD_SIZE:
+                to_MB = settings.MAX_IMAGE_UPLOAD_SIZE / (1024 * 1024)
+                data = json.dumps({
+                    'status': 405,
+                    'error': _('Maximum image file is %(size) MB.') % {'size': to_MB}
+                }, cls=LazyEncoder)
+                return HttpResponse(
+                    data, content_type='application/json', status=405)
+
+            img_uuid = "{0}-{1}".format(uuid.uuid4().hex[:10], image.name.replace(' ', '-'))
+            tmp_file = os.path.join(settings.MARTOR_UPLOAD_PATH, img_uuid)
+            def_path = default_storage.save(tmp_file, ContentFile(image.read()))
+            img_url = os.path.join(settings.MEDIA_URL, def_path)
+
+            data = json.dumps({
+                'status': 200,
+                'link': img_url,
+                'name': image.name
+            })
+            return HttpResponse(data, content_type='application/json')
+        return HttpResponse(_('Invalid request!'))
+    return HttpResponse(_('Invalid request!'))

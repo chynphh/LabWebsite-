@@ -30,7 +30,7 @@
                 </div>
 
                 <p>
-                    {{ post.content_html|linebreaks }}
+                    {{ post.content_html|safe_markdown }}
                 </p>
 
                 <ul class="list-inline d-sm-flex my-0">
@@ -64,7 +64,7 @@
                 </div>
 
                 <p>
-                    {{ reply.content_html|linebreaks }}
+                    {{ reply.content_html|safe_markdown }}
                 </p>
 
                 <ul class="list-inline d-sm-flex my-0">
@@ -100,7 +100,7 @@
                     <span class="g-color-gray-dark-v4 g-font-size-12"> @{{comment.user_to.name}} </span>
                 </div>
                 <p>
-                    {{ comment.content|linebreaks }}
+                    {{ comment.content|safe_markdown }}
                 </p>
 
                 <ul class="list-inline d-sm-flex my-0">
@@ -127,8 +127,251 @@
                 <div class="form-group">
                     <label for="{{ comment_form.content.id_for_label }}" class="col-md-2 g-font-size-20 control-label">Comment</label>
                     <div class="col-sm-8">
-                        <textarea  name="content" required id="id_content" class="form-control form-control-md rounded-0" rows="3" placeholder="Text area"></textarea>
-                    </div>
+
+<div class="main-martor main-martor-content{{ reply.pk }}" data-field-name="content{{ reply.pk }}">
+  <div class="section-martor">
+    <div class="ui top attached tabular pointing secondary menu tab-martor-menu">
+      <a class="item active" data-tab="editor-tab-content{{ reply.pk }}"><i class="edit icon"></i> Editor</a>
+      <a class="item" data-tab="preview-tab-content{{ reply.pk }}"><i class="eye icon"></i>Preview</a>
+      
+      <div class="ui right floated item martor-toolbar">
+        <div class="ui basic tiny icon buttons no-border">
+          <div class="ui icon button no-border markdown-selector markdown-bold" title="Bold (Ctrl+B)">
+            <i class="bold icon"></i>
+          </div>
+          <div class="ui icon button no-border markdown-selector markdown-italic" title="Italic (Ctrl+I)">
+            <i class="italic icon"></i>
+          </div>
+          <div class="ui icon button no-border markdown-selector markdown-horizontal" title="Horizontal Line (Ctrl+H)">
+            <i class="minus icon"></i>
+          </div>
+          <div class="ui icon button top left pointing dropdown no-border" title="Heading">
+            <i class="header icon"></i>
+            <div class="menu">
+              <div class="item markdown-selector markdown-h1" title="">Heading 1 (Ctrl+Alt+1)</div>
+              <div class="item markdown-selector markdown-h2" title="">Heading 2 (Ctrl+Alt+2)</div>
+              <div class="item markdown-selector markdown-h3" title="">Heading 3 (Ctrl+Alt+3)</div>
+            </div>
+          </div>
+
+          <div class="ui icon button top left pointing dropdown no-border" title="Pre or Code">
+            <i class="code icon"></i>
+            <div class="menu">
+              <div class="item markdown-selector markdown-pre" title="">Pre (Ctrl+Alt+P)</div>
+              <div class="item markdown-selector markdown-code" title="">Code (Ctrl+Alt+C)</div>
+            </div>
+          </div>
+          <div class="ui icon button no-border markdown-selector markdown-blockquote" title="Quote (Ctrl+Q)">
+            <i class="quote left icon"></i>
+          </div>
+          <div class="ui icon button no-border markdown-selector markdown-unordered-list" title="Unordered List (Ctrl+U)">
+            <i class="unordered list icon"></i>
+          </div>
+          <div class="ui icon button no-border markdown-selector markdown-ordered-list" title="Ordered List (Ctrl+Shift+O)">
+            <i class="ordered list icon"></i>
+          </div>
+
+          <div class="ui icon button no-border markdown-selector markdown-link" title="URL/Link (Ctrl+L)">
+            <i class="linkify icon"></i>
+          </div>
+          <div class="ui icon button no-border markdown-selector markdown-image-link" title="Insert Image Link (Ctrl+Shift+I)">
+            <i class="image icon"></i>
+          </div>
+          <div class="ui icon button no-border markdown-selector markdown-image-upload" title="Upload an Image">
+            <i class="cloud upload icon"></i>
+            <input name="markdown-image-upload" class="button" type="file" accept="image/*" title="Upload an Image">
+          </div>
+          <div class="ui icon button no-border markdown-selector markdown-emoji" title="Insert Emoji">
+            <i class="smile icon"></i>
+          </div>
+          <div class="ui icon button no-border markdown-selector markdown-direct-mention" title="Direct Mention a User (Ctrl+M)">
+            <i class="at icon"></i>
+          </div>
+
+          <div class="ui icon button no-border markdown-selector markdown-toggle-maximize" title="Full Screen">
+            <i class="window maximize icon"></i>
+          </div>
+          <div class="ui icon button no-border markdown-selector markdown-help" title="Markdown Guide (Help)">
+            <i class="help circle icon"></i>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <div class="ui bottom attached tab segment active" data-tab="editor-tab-content{{ reply.pk }}">
+      <div class="ui active dimmer upload-progress" style="display:none">
+        <div class="ui text loader">Uploading... please wait...</div>
+      </div>
+      <div id="martor-content{{ reply.pk }}" class="martor-field martor-field-content{{ reply.pk }}"></div>
+      <textarea name="content{{ reply.pk }}" cols="40" rows="10" required="" id="id_content{{ reply.pk }}" class="martor" data-enable-configs="{'imgur': 'true', 'mention': 'false', 'jquery': 'true', 'living': 'false'}" data-upload-url="/bbs/api/uploader/" data-markdownfy-url="/martor/markdownify/" data-search-users-url="/martor/search-user/" data-base-emoji-url="https://assets-cdn.github.com/images/icons/emoji/" style="display:none"></textarea>
+      </textarea>
+      <i class="resize vertical grey icon expand-editor"></i>
+    </div>
+    <div class="ui bottom attached tab segment martor-preview" data-tab="preview-tab-content{{ reply.pk }}">
+      <p>Nothing to preview</p>
+    </div>
+  </div><!-- end  /.section-martor -->
+
+  
+  <div class="ui medium modal scrolling transition modal-help-guide">
+    <i class="close icon"></i>
+    <div class="header"><i class="help circle icon"></i> Markdown Guide</div>
+    <div class="content">
+      <p>This site is powered by Markdown. For full documentation, <a href="http://commonmark.org/help/" target="_blank">click here</a></p>
+      <table class="ui celled table markdown-reference">
+        <thead>
+          <tr>
+            <th>Code</th>
+            <th>Or</th>
+            <th>Linux/Windows</th>
+            <th>Mac OS</th>
+            <th>... to Get</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>:emoji_name:</td>
+            <td>&mdash;</td>
+            <td>&mdash;</td>
+            <td>&mdash;</td>
+            <td><img class="marked-emoji" src="/static/plugins/images/heart.png"></td>
+          </tr>
+          <tr>
+            <td>@[username]</td>
+            <td>&mdash;</td>
+            <td>Ctrl+M</td>
+            <td>Command+M</td>
+            <td><a href="#">@username</a></td>
+          </tr>
+          <tr><td colspan="5"></td></tr>
+          <tr>
+            <td>*Italic*</td>
+            <td>_Italic_</td>
+            <td>Ctrl+I</td>
+            <td>Command+I</td>
+            <td><em>Italic</em></td>
+          </tr>
+          <tr>
+            <td>**Bold**</td>
+            <td>__Bold__</td>
+            <td>Ctrl+B</td>
+            <td>Command+B</td>
+            <td><strong>Bold</strong></td>
+          </tr>
+          <tr>
+            <td>++Underscores++</td>
+            <td>&mdash;</td>
+            <td>Shift+U</td>
+            <td>Option+U</td>
+            <td><ins>Underscores</ins></td>
+          </tr>
+          <tr>
+            <td>~~Strikethrough~~</td>
+            <td>&mdash;</td>
+            <td>Shift+S</td>
+            <td>Option+S</td>
+            <td><del>Strikethrough</del></td>
+          </tr>
+          <tr>
+            <td># Heading 1</td>
+            <td>Heading 1<br> =========</td>
+            <td>Ctrl+Alt+1</td>
+            <td>Command+Option+1</td>
+            <td><h1>Heading 1</h1></td>
+          </tr>
+          <tr>
+            <td>## Heading 2</td>
+            <td>Heading 2<br> -----------</td>
+            <td>Ctrl+Alt+2</td>
+            <td>Command+Option+2</td>
+            <td><h2>Heading 2</h2></td>
+          </tr>
+          <tr>
+            <td>[Link](http://a.com)</td>
+            <td>[Link][1]<br> &#8285;<br> [1]: http://b.org</td>
+            <td>Ctrl+L</td>
+            <td>Command+L</td>
+            <td><a href="http://commonmark.org/">Link</a></td>
+          </tr>
+          <tr>
+            <td>![Image](http://url/a.png)</td>
+            <td>![Image][1]<br> &#8285;<br> [1]: http://url/b.jpg</td>
+            <td>Ctrl+Shift+I</td>
+            <td>Command+Option+I</td>
+            <td><img src="/static/plugins/images/commonmark.png" width="36" height="36" alt="Markdown"></td>
+          </tr>
+          <tr>
+            <td>&gt; Blockquote</td>
+            <td>&mdash;</td>
+            <td>Ctrl+Q</td>
+            <td>Command+Q</td>
+            <td><blockquote>Blockquote</blockquote></td>
+          </tr>
+          <tr>
+            <td>A paragraph.<br><br> A paragraph after 1 blank line.</td>
+            <td>&mdash;</td>
+            <td>&mdash;</td>
+            <td>&mdash;</td>
+            <td><p>A paragraph.</p><p>A paragraph after 1 blank line.</p></td>
+          </tr>
+          <tr>
+            <td><p>* List<br> * List<br> * List</p></td>
+            <td><p> - List<br> - List<br> - List<br></p></td>
+            <td>Ctrl+U</td>
+            <td>Command+U</td>
+            <td><ul><li>List</li><li>List</li><li>List</li></ul>
+            </td>
+          </tr>
+          <tr>
+            <td><p> 1. One<br> 2. Two<br> 3. Three</p></td>
+            <td><p> 1) One<br> 2) Two<br> 3) Three</p></td>
+            <td>Ctrl+Shift+O</td>
+            <td>Command+Option+O</td>
+            <td><ol><li>One</li><li>Two</li><li>Three</li></ol></td>
+          </tr>
+          <tr>
+            <td>Horizontal Rule<br><br> -----------</td>
+            <td>Horizontal Rule<br><br> ***********</td>
+            <td>Ctrl+H</td>
+            <td>Command+H</td>
+            <td>Horizontal Rule <hr></td>
+          </tr>
+          <tr>
+            <td>`Inline code` with backticks</td>
+            <td>&mdash;</td>
+            <td>Ctrl+Alt+C</td>
+            <td>Command+Option+C</td>
+            <td><code>Inline code</code> with backticks</td>
+          </tr>
+          <tr>
+            <td>```<br> def whatever(foo):<br>&nbsp;&nbsp;&nbsp;&nbsp;return foo<br>```</td>
+            <td><b>with tab / 4 spaces</b><br>....def whatever(foo):<br>....&nbsp;&nbsp;&nbsp;&nbsp;return foo</td>
+            <td>Ctrl+Alt+P</td>
+            <td>Command+Option+P</td>
+            <td><pre>def whatever(foo):<br />    return foo</pre></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  
+  <div class="ui large modal scrolling transition modal-emoji">
+    <i class="close icon"></i>
+    <div class="header"><i class="help circle icon"></i> Select Emoji to Insert</div>
+    <div class="content emoji-content-base">
+      <div class="ui segment emoji-loader-init">
+        <div class="ui active inverted dimmer">
+          <div class="ui text loader">Preparing emojis...</div>
+        </div>
+      </div>
+      <div class="ui grid emoji-content-body">
+      </div>
+    </div>
+  </div>
+
+</div>
+
                 </div>
                 <div class="form-group">
                     <div class="col-sm-offset-2 col-sm-10">
@@ -150,10 +393,7 @@
             <form class="form-horizontal" autocomplete="off" action="{% url 'add_reply' post.pk %}" method="post" role="form">
                 {% csrf_token %}
                 <div class="form-group">
-                    <label for="{{ reply_form.content_html.id_for_label }}" class="col-md-2 g-font-size-20 control-label">Reply</label>
-                    <div class="col-md-12">
-                        <textarea  name="content_html" required id="id_content_html" class="form-control form-control-md rounded-0" rows="3" ></textarea>
-                    </div>
+                    {{ reply_form.content_html }}
                 </div>
                 <div class="form-group">
                     <div class="col-sm-offset-2 col-sm-10">

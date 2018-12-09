@@ -6,6 +6,7 @@ import django.utils.timezone as timezone
 from django.urls import reverse
 from imagekit.models import ProcessedImageField
 from imagekit.processors import ResizeToFill
+from martor.models import MartorField
 
 
 class MyUserManager(BaseUserManager):
@@ -111,9 +112,8 @@ class Post(models.Model):
         u'帖子状态', max_length=20, choices=status_choice, default=status_choice[1])
     view = models.IntegerField(u'浏览量', default=1)
     reply = models.IntegerField(u'回复量', default=0)
-    # content_html = UEditorField(imagePath="/img/",
-    #                             filePath="media/img/", verbose_name=u"文章内容")
-    content_html = models.TextField(verbose_name=u"文章内容")
+    # content_html = models.TextField(verbose_name=u"文章内容")
+    content_html = MartorField(verbose_name=u"文章内容")
     is_top = models.BooleanField(u'是否置顶', default=True)
 
     # 定义外键关系
@@ -147,9 +147,8 @@ class Reply(models.Model):
     post = models.ForeignKey(
         Post, related_name='reply_set', on_delete=models.CASCADE)
     user = models.ForeignKey(MyUser, on_delete=models.CASCADE)
-    # content_html = UEditorField(imagePath="/img/",
-    #                             filePath="media/img/", verbose_name=u"回复内容")
-    content_html = models.TextField(verbose_name=u"回复内容")
+    # content_html = models.TextField(verbose_name=u"回复内容")
+    content_html = MartorField(verbose_name=u"回复内容")
     created_time = models.DateTimeField(auto_now_add=True, verbose_name='创建时间')
 
     def __str__(self):  # __str__ on Python 3
@@ -167,9 +166,8 @@ class Comment(models.Model):
     user_to = models.ForeignKey(
         MyUser, related_name='comment_user_to_set', on_delete=models.CASCADE)
     created_time = models.DateTimeField(auto_now_add=True, verbose_name='创建时间')
-    # content = UEditorField(imagePath="/img/",
-    #                             filePath="media/img/", verbose_name=u"评论内容")
-    content = models.TextField(verbose_name=u'评论内容')
+    # content = models.TextField(verbose_name=u'评论内容')
+    content = MartorField(verbose_name=u"评论内容")
 
     def __str__(self):  # __str__ on Python 3
         return f"comment...."
@@ -179,3 +177,11 @@ class Comment(models.Model):
 
     class Meta:
         app_label = 'bbs'
+
+
+
+
+class Martor(models.Model):
+    title = models.CharField(max_length=200)
+    description = MartorField()
+    wiki = MartorField()

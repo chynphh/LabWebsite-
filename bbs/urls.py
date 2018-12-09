@@ -15,4 +15,9 @@ urlpatterns = [
     path(r'upload', views.upload, name='upload'),
     re_path(r'delete/(?P<delete_type>[a-z]*)/(?P<pk>\d+)', views.delete, name='delete'),
     path(r'user_mark_all_read', views.user_mark_all_read, name='user_mark_all_read'),
+    re_path(r'api/uploader/$', views.markdown_uploader, name='markdown_uploader_page'),
+
+    path(r'test', views.test, name='test'),
+    path(r'test_post', views.test_post, name='test_post'),
+
 ]

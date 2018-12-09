@@ -7,7 +7,10 @@
 
 <head>
   {% load static %}
+  {% load staticfiles %}
   {% load my_filter %}
+  {% load martortags %}
+
   {% load notifications_tags %}
   {% notifications_unread as unread_count %}
   {% block title %}
@@ -49,6 +52,12 @@
 
   <!-- CSS Customization -->
   <link rel="stylesheet" href="/static/assets/css/custom.css">
+
+  
+  <link href="/static/plugins/css/ace.min.css" type="text/css" media="all" rel="stylesheet" />
+  <link href="/static/plugins/css/semantic.min.css" type="text/css" media="all" rel="stylesheet" />
+  <link href="/static/plugins/css/resizable.min.css" type="text/css" media="all" rel="stylesheet" />
+  <link href="/static/martor/css/martor.min.css" type="text/css" media="all" rel="stylesheet" />
   {% block css %}
   
   {% endblock %}
@@ -295,6 +304,17 @@
       });
     });
   </script>
+
+  <script type="text/javascript" src="/static/plugins/js/ace.js"></script>
+  <script type="text/javascript" src="/static/plugins/js/semantic.min.js"></script>
+  <script type="text/javascript" src="/static/plugins/js/mode-markdown.js"></script>
+  <script type="text/javascript" src="/static/plugins/js/ext-language_tools.js"></script>
+  <script type="text/javascript" src="/static/plugins/js/theme-github.js"></script>
+  <script type="text/javascript" src="/static/plugins/js/highlight.min.js"></script>
+  <script type="text/javascript" src="/static/plugins/js/resizable.min.js"></script>
+  <script type="text/javascript" src="/static/plugins/js/emojis.min.js"></script>
+  <script type="text/javascript" src="/static/martor/js/martor.min.js"></script>
+
   {% block js %}
 
   {% endblock %}

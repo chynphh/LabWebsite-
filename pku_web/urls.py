@@ -25,6 +25,9 @@ urlpatterns = [
     path(r'admin/', admin.site.urls),
     re_path(r'^ckeditor/', include('ckeditor_uploader.urls')),
     # path(r'mdeditor/', include('mdeditor.urls')),
+    # re_path(r'^markdownx/', include('markdownx.urls')),
+    path('martor/', include('martor.urls')),
+
     re_path(r'^notifications/', include('notifications.urls', namespace='notifications')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
