@@ -3,7 +3,6 @@ from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
 from django.contrib.auth.hashers import make_password, check_password
 from ckeditor.fields import RichTextField
 import django.utils.timezone as timezone
-from DjangoUeditor.models import UEditorField
 from django.urls import reverse
 from imagekit.models import ProcessedImageField
 from imagekit.processors import ResizeToFill
