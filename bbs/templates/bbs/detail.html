@@ -419,6 +419,9 @@
           $('#hideAndShow'+reply_pk).css("display","none");
         }
      }
-
+  function fun1(){
+    var math = document.getElementsByClassName("martor-preview");
+    MathJax.Hub.Queue(["Typeset", MathJax.Hub, math]);  
+ }  
 </script>
 {% endblock %}

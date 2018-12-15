@@ -43,8 +43,6 @@ INSTALLED_APPS = [
     'bbs',
 
     'notifications',
-    # 'mdeditor',
-    # 'markdownx',
     'martor',
 
     'ckeditor',
@@ -238,7 +236,9 @@ MARTOR_ENABLE_LABEL = False
 
 
 # Safe Mode
-MARTOR_MARKDOWN_SAFE_MODE = True # default
+# MARTOR_MARKDOWN_SAFE_MODE = True # default
+# MARTOR_MARKDOWN_SAFE_MODE = 'escape'
+MARTOR_MARKDOWN_SAFE_MODE = False
 
 # Markdownify
 MARTOR_MARKDOWNIFY_FUNCTION = 'martor.utils.markdownify' # default
@@ -250,6 +250,7 @@ MARTOR_MARKDOWN_EXTENSIONS = [
     'markdown.extensions.nl2br',
     'markdown.extensions.smarty',
     'markdown.extensions.fenced_code',
+    'markdown.extensions.sane_lists',
 
     # Custom markdown extensions.
     'martor.extensions.urlize',
